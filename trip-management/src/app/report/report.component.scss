@@ -1,0 +1,21 @@
+.canvas {
+  height: 4rem;
+  width: 100%;
+  border: solid 1px red;
+}
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+@media screen and (max-width: 500px) {
+  #report {
+    margin-top: 0;
+    padding: 1rem;
+  }
+  .left-1{
+    margin-left: 2rem;
+  }
+}

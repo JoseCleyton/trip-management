@@ -1,0 +1,129 @@
+<div class="container">
+  <h1>Novo Dizimista</h1>
+  <form [formGroup]="formEditChristian">
+    <div class="row">
+      <div class="col-12 d-flex align-items-center">
+        <h4>Dados Pessoais</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <mat-form-field style="width: 15rem">
+          <mat-label>Nome *</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error
+            *ngIf="
+              formEditChristian.get('name').touched &&
+              formEditChristian.get('name').hasError('required')
+            "
+          >
+            Nome é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <mat-form-field style="width: 14rem">
+          <mat-label>Data de Nascimento *</mat-label>
+          <input matInput formControlName="birthDate" mask="00/00/0000" />
+          <mat-error
+            *ngIf="
+              formEditChristian.get('birthDate').touched &&
+              formEditChristian.get('birthDate').hasError('required')
+            "
+          >
+            Data de Nascimento é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <mat-form-field style="width: 14rem">
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="phone" mask="(00)0.0000-0000" />
+        </mat-form-field>
+      </div>
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <mat-form-field style="width: 14rem">
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <mat-form-field style="width: 14rem">
+          <mat-label>Cidade *</mat-label>
+          <input matInput formControlName="city" />
+          <mat-error
+            *ngIf="
+              formEditChristian.get('city').touched &&
+              formEditChristian.get('city').hasError('required')
+            "
+          >
+            Cidade é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <mat-form-field style="width: 14rem">
+          <mat-label>Bairro *</mat-label>
+          <input matInput formControlName="district" />
+          <mat-error
+            *ngIf="
+              formEditChristian.get('district').touched &&
+              formEditChristian.get('district').hasError('required')
+            "
+          >
+            Bairro é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <mat-form-field style="width: 14rem">
+          <mat-label>Rua *</mat-label>
+          <input matInput formControlName="street" />
+          <mat-error
+            *ngIf="
+              formEditChristian.get('street').touched &&
+              formEditChristian.get('street').hasError('required')
+            "
+          >
+            Rua é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <mat-form-field style="width: 14rem">
+          <mat-label>Número *</mat-label>
+          <input type="number" matInput formControlName="number" />
+          <mat-error
+            *ngIf="
+              formEditChristian.get('number').touched &&
+              formEditChristian.get('number').hasError('required')
+            "
+          >
+            Número é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col d-flex justify-content-start">
+      <button mat-raised-button (click)="closeDialog()">Cancelar</button>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="formEditChristian.invalid"
+        (click)="edit()"
+      >
+        Editar
+      </button>
+    </div>
+  </div>
+</div>

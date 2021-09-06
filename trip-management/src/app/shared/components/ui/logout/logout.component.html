@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Logout</h1>
+    <div class="row">
+        <div class="col d-flex justify-content-center align-items-center">
+            <h3>
+                Deseja realmente sair ?
+            </h3>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 1rem">
+        <div class="col d-flex justify-content-start">
+            <button mat-raised-button (click)="closeDialog()">
+                Cancelar
+            </button>
+        </div>
+        <div class="col d-flex justify-content-start">
+            <button mat-raised-button color="primary" (click)="logout()">
+                Logout
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+    <h1>{{ title }}</h1>
+    <form [formGroup]="formTither">
+        <div class="row">
+            <div class="col-6">
+                <mat-form-field appearance="fill">
+                    <mat-label>Dizimista</mat-label>
+                    <input type="text" matInput formControlName="christian" />
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor</mat-label>
+                    <input type="number" placeholder="Ex. 100" matInput formControlName="value" />
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col d-flex justify-content-start">
+            <button mat-raised-button (click)="closeDialog()">Cancelar</button>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <button mat-raised-button color="primary" [disabled]="formTither.invalid" (click)="payTithing()">Pagar</button>
+        </div>
+    </div>
+
+</div>

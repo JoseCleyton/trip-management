@@ -1,0 +1,13 @@
+<div class="container-alert" *ngIf="alerts.length > 0" style="margin-top: 2rem">
+    <div style="display: inline-block">
+        <div class="row" style="padding: 0.3rem" *ngFor="let alert of alerts">
+            <div [class]="alert.type==='error' ?  'alert alert-danger' :  'alert alert-success'" role="alert">
+                {{ alert.message }}
+                <button class="btn" (click)="closeAlertError(alert.id)">
+                    <mat-icon aria-hidden="false">close</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>

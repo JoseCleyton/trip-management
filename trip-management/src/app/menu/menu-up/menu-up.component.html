@@ -1,0 +1,77 @@
+<div id="menu-up">
+    <div class="row">
+      <div class="col d-flex justify-content-center align-items-center">
+        <h3 id="title-up">
+          <strong>Church</strong><span style="opacity: 0.5">Manager</span>
+        </h3>
+      </div>
+    </div>
+    <mat-toolbar style="background: none;">
+      <div
+      class="row d-flex justify-content-end align-items-center"
+      style="width: 100%; margin: auto"
+    >
+      <div class="col-3 icons-menu">
+        <img
+          *ngIf="url === '/feature/dashboard'"
+          class="img-10-10"
+          src="../../assets/images/icons8-circulo-preenchido-16.png"
+        />
+        <button class="btn" routerLink="dashboard">
+          <mat-icon class="material-icons-outlined" aria-hidden="true"
+            >dashboard</mat-icon
+          >
+        </button>
+      </div>
+      <div *ngIf="isAdmin" class="col-2 icons-menu">
+        <img
+          *ngIf="url === '/feature/church'"
+          class="img-10-10"
+          src="../../assets/images/icons8-circulo-preenchido-16.png"
+        />
+        <button class="btn" routerLink="church">
+          <img
+            class="img-26-26"
+            src="../../assets/images/icons8-igreja-50.png"
+          />
+        </button>
+      </div>
+      <div class="col-2 icons-menu">
+        <img
+          *ngIf="url === '/feature/christians'"
+          class="img-10-10"
+          src="../../assets/images/icons8-circulo-preenchido-16.png"
+        />
+        <button class="btn" routerLink="christians">
+          <img
+            class="img-26-26"
+            src="../../assets/images/icons8-conferencia-64.png"
+          />
+        </button>
+      </div>
+      <div class="col-2 icons-menu">
+        <img
+          *ngIf="url === '/feature/report'"
+          class="img-10-10"
+          src="../../assets/images/icons8-circulo-preenchido-16.png"
+        />
+        <button class="btn" routerLink="report">
+          <img
+            class="img-26-26"
+            src="../../assets/images/icons8-grafico-combinado-50.png"
+          />
+        </button>
+      </div>
+  
+      <div class="col-3 icons-menu">
+        <button class="btn" (click)="logout()">
+          <img
+            class="img-35-35"
+            src="../../assets/images/icons8-conta-de-teste-160.png"
+          />
+        </button>
+      </div>
+  </div>
+    </mat-toolbar>
+   
+  </div>

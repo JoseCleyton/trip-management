@@ -1,0 +1,15 @@
+.relative {
+  position: relative;
+}
+
+.center-v-password {
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  display: block;
+  right: -0.8rem;
+}
+
+.help {
+  cursor: pointer;
+}

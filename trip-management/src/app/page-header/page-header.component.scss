@@ -1,0 +1,22 @@
+.btn {
+  height: 2.5rem;
+}
+#new {
+  width: 7rem;
+  color: white;
+  background-color: #2c89ff;
+}
+
+.ml {
+  margin-left: 6rem;
+}
+
+#iconClose {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 360px) {
+  .ml {
+    margin-left: 0;
+  }
+}

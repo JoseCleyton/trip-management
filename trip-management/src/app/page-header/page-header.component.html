@@ -1,0 +1,101 @@
+<form *ngIf="type === 'christian'" [formGroup]="formFilterChristian">
+  <div class="row">
+    <div class="col" style="margin-top: 0.7rem">
+      <mat-form-field style="width: 5rem">
+        <mat-label>Número</mat-label>
+
+        <input
+          #inpuNumber
+          (input)="searchByNumberChristian(inpuNumber.value)"
+          matInput
+          placeholder="Número"
+          formControlName="number"
+        />
+        <mat-icon
+          *ngIf="formFilterChristian.get('number').value"
+          id="iconClose"
+          matSuffix
+          (click)="resetSearch()"
+          >close</mat-icon
+        >
+      </mat-form-field>
+    </div>
+    <div class="col" style="margin-top: 0.7rem">
+      <mat-form-field>
+        <mat-label>Nome do Dizimista</mat-label>
+        <input
+          #input
+          (input)="searchByNameChristian(input.value)"
+          matInput
+          placeholder="Nome"
+          formControlName="name"
+        />
+        <mat-icon
+          *ngIf="
+            formFilterChristian.get('name').value &&
+            formFilterChristian.get('name').value.length > 0
+          "
+          id="iconClose"
+          matSuffix
+          (click)="resetSearch()"
+          >close</mat-icon
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col" style="margin-top: 0.7rem">
+      <mat-form-field style="width: 9rem;">
+        <mat-label>Mês de Aniversário</mat-label>
+        <mat-select
+          (selectionChange)="searchByMonthBirthday($event.value)"
+          formControlName="monthOfBirthday"
+        >
+          <mat-option>---</mat-option>
+          <mat-option *ngFor="let month of months" [value]="month.value"
+            >{{ month.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col mt-3" style="max-height: 2.4rem">
+      <button
+        color="primary"
+        mat-raised-button
+        (click)="openDialogNewChristian()"
+      >
+        <mat-icon aria-hidden="false">add</mat-icon> Novo
+      </button>
+    </div>
+  </div>
+</form>
+
+<form *ngIf="type === 'church'" [formGroup]="formFilterChurch">
+  <div class="row ml">
+    <div class="col" style="margin-top: 0.7rem">
+      <mat-form-field style="width: 15rem">
+        <mat-label>Nome da Igreja</mat-label>
+        <input
+          #input
+          (input)="searchByNameChurch(input.value)"
+          matInput
+          placeholder="Nome"
+          formControlName="name"
+        />
+        <mat-icon
+          *ngIf="formFilterChurch.get('name').value.length > 0"
+          id="iconClose"
+          matSuffix
+          (click)="resetSearch()"
+          >close</mat-icon
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col mt-3" style="max-height: 2.4rem">
+      <button color="primary" mat-raised-button (click)="openDialogNewChurch()">
+        <mat-icon aria-hidden="false">add</mat-icon> Novo
+      </button>
+    </div>
+  </div>
+</form>

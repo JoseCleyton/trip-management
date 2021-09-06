@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+td:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    overflow-y: auto;
+  }
+  .mat-dialog-container {
+    height: 35rem !important;
+  }
+}
+
+.thead {
+  opacity: 0.5;
+}
+.img-30-30 {
+  width: 30px;
+  height: 30px;
+}
+.img-40-40 {
+  width: 40px;
+  height: 40px;
+}
+.img-35-35 {
+  width: 35px;
+  height: 35px;
+}
+.invalid {
+  color: red;
+  font-weight: 300;
+}

@@ -1,0 +1,177 @@
+<app-header></app-header>
+<div class="row mt-1">
+  <div
+    class="
+      col-xl-2 col-md-4 col-sm-6
+      d-flex
+      justify-content-start
+      align-items-center
+      left-1
+    "
+  >
+    <h4 style="font-weight: 600">
+      Total (mês): {{ totalTithings | currency: "BRL":"symbol" }}
+    </h4>
+  </div>
+
+  <div
+    *ngIf="isAdmin"
+    class="
+      col-xl-2 col-md-5 col-sm-6
+      d-flex
+      justify-content-start
+      align-items-center
+      mr-1
+      left-1
+    "
+  >
+    <form [formGroup]="formChurch">
+      <mat-form-field>
+        <mat-label>Capela</mat-label>
+        <mat-select
+          formControlName="church"
+          (selectionChange)="changeChurch($event.value)"
+        >
+          <mat-option *ngFor="let church of churchs" [value]="church.id"
+            >{{ church.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div class="col-xl-6 col-md-9 col-sm-12 d-flex justify-content-start left-1">
+    <form [formGroup]="formFilterDate">
+      <mat-form-field class="mr-1">
+        <mat-label>Data Inicial</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerStart"
+          formControlName="startDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerStart"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerStart></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data Final</mat-label>
+        <input matInput [matDatepicker]="pickerEnd" formControlName="endDate" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerEnd"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+    </form>
+
+    <div
+      class="
+        col-xl-1 col-md-1 col-sm-1
+        justify-content-start
+        align-items-center
+        mt-3
+      "
+    >
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        [disabled]="formFilterDate.invalid"
+        (click)="searchByDate()"
+      >
+        <mat-icon aria-hidden="false">search</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <mat-horizontal-stepper
+      labelPosition="bottom"
+      #stepper
+      style="margin-top: 0"
+    >
+      <mat-step [stepControl]="lineChartDataBar">
+        <ng-template matStepLabel>Gráficos</ng-template>
+        <div class="row">
+          <div class="col-xl-8 col-md-8 col-sm-12">
+            <canvas
+              baseChart
+              [datasets]="lineChartDataBar"
+              [labels]="lineChartLabelsBar"
+              [colors]="lineChartColorsBar"
+              [legend]="lineChartLegendBar"
+              [chartType]="lineChartTypeBar"
+              [plugins]="lineChartPluginsBar"
+            >
+            </canvas>
+          </div>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <canvas
+              baseChart
+              [datasets]="lineChartDataDoughnutPie"
+              [labels]="lineChartLabelsDoughnutPie"
+              [colors]="lineChartColorsDoughnutPie"
+              [legend]="lineChartLegendDoughnutPie"
+              [chartType]="lineChartTypeDoughnutPie"
+              [plugins]="lineChartPluginsDoughnutPie"
+            >
+            </canvas>
+            <canvas
+              baseChart
+              [datasets]="lineChartDataLine"
+              [labels]="lineChartLabelsLine"
+              [colors]="lineChartColorsLine"
+              [legend]="lineChartLegendLine"
+              [chartType]="lineChartTypeLine"
+              [plugins]="lineChartPluginsLine"
+            >
+            </canvas>
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="tithes">
+        <ng-template matStepLabel>Relatório de Dízimos</ng-template>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="thead">
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tithing of tithings" (click)="selectChurch(item)">
+                <td>
+                  <img
+                    class="img-30-30"
+                    src="../../assets/images/icons8-usuario-masculino-50.png"
+                  />
+                  {{ tithing.christian.name }}
+                </td>
+                <td>
+                  <img
+                    class="img-30-30"
+                    src="../../assets/images/icons8-dinheiro-150.png"
+                  />{{ tithing.value }}
+                </td>
+                <td>
+                  <img
+                    class="img-30-30"
+                    src="../../assets/images/icons8-data-ate-64.png"
+                  />
+                  {{ tithing.date | date: "dd/MM/yyyy" }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>

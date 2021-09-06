@@ -1,0 +1,190 @@
+<div class="container">
+  <h1>Nova Capela</h1>
+  <form [formGroup]="formAddChurch">
+    <div class="row">
+      <div class="col-12 d-flex align-items-center">
+        <h4>Dados Pessoais</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-5 col-md-6 col-sm-12">
+        <mat-form-field style="width: 20rem">
+          <mat-label>Nome *</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error
+            *ngIf="
+              formAddChurch.get('name').touched &&
+              formAddChurch.get('name').hasError('required')
+            "
+          >
+            Nome é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-xl-3 col-md-6 col-sm-12">
+        <mat-form-field>
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="phone" mask="(00)0.0000-0000" />
+        </mat-form-field>
+      </div>
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <mat-form-field style="width: 15rem">
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <mat-form-field style="width: 15rem">
+          <mat-label>Cidade *</mat-label>
+          <input matInput formControlName="city" />
+          <mat-error
+            *ngIf="
+              formAddChurch.get('city').touched &&
+              formAddChurch.get('city').hasError('required')
+            "
+          >
+            Cidade é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xl-3 col-md-6 col-sm-12">
+        <mat-form-field style="width: 10rem">
+          <mat-label>Bairro *</mat-label>
+          <input matInput formControlName="district" />
+          <mat-error
+            *ngIf="
+              formAddChurch.get('district').touched &&
+              formAddChurch.get('district').hasError('required')
+            "
+          >
+            Bairro é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xl-3 col-md-6 col-sm-12">
+        <mat-form-field style="width: 12rem">
+          <mat-label>Rua *</mat-label>
+          <input matInput formControlName="street" />
+          <mat-error
+            *ngIf="
+              formAddChurch.get('street').touched &&
+              formAddChurch.get('street').hasError('required')
+            "
+          >
+            Rua é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xl-2 col-md-6 col-sm-12">
+        <mat-form-field style="width: 5rem">
+          <mat-label>Número *</mat-label>
+          <input type="number" matInput formControlName="number" />
+          <mat-error
+            *ngIf="
+              formAddChurch.get('number').touched &&
+              formAddChurch.get('number').hasError('required')
+            "
+          >
+            Número é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-5 col-md-6 col-sm-12">
+        <mat-form-field style="width: 20rem">
+          <mat-label>Responsável *</mat-label>
+          <input matInput formControlName="responsible" />
+          <mat-error
+            *ngIf="
+              formAddChurch.get('responsible').touched &&
+              formAddChurch.get('responsible').hasError('required')
+            "
+          >
+            Responsável é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xl-1 col-md-6 col-sm-12">
+        <mat-form-field>
+          <mat-label>Número de Dizimistas</mat-label>
+          <input type="number" matInput formControlName="numberOfTithers" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-3 d-flex justify-content-start align-items-center">
+        <h4>Credenciais de Usuário</h4>
+      </div>
+      <div class="col-9 d-flex justify-content-start align-items-start">
+        <mat-icon
+          (click)="openRulesPassword()"
+          class="material-icons-outlined help"
+          aria-hidden="false"
+          >help_outline</mat-icon
+        >
+      </div>
+      <div class="col-xl-3 col-md-6 col-sm-12">
+        <mat-form-field>
+          <mat-label>Login *</mat-label>
+          <input matInput formControlName="login" />
+          <mat-error
+            *ngIf="
+              formAddChurch.get('login').touched &&
+              formAddChurch.get('login').hasError('required')
+            "
+          >
+            Login é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xl-3 col-md-6 col-sm-12">
+        <div class="relative">
+          <mat-form-field>
+            <mat-label>Senha *</mat-label>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              matInput
+              formControlName="password"
+            />
+            <mat-error
+              *ngIf="
+                formAddChurch.get('password').touched &&
+                formAddChurch.get('password').hasError('required')
+              "
+            >
+              Senha é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>
+          <button
+            class="btn center-v-password"
+            type="button"
+            (click)="showPassword = !showPassword"
+          >
+            <mat-icon aria-hidden="false">{{
+              showPassword ? "visibility" : "visibility_off"
+            }}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col d-flex justify-content-start">
+      <button mat-raised-button (click)="closeDialog()">Cancelar</button>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="formAddChurch.invalid"
+        (click)="add()"
+      >
+        Cadastrar
+      </button>
+    </div>
+  </div>
+</div>

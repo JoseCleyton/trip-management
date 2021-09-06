@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="row">
+    <div id="header" class="col-lg-7 col-md-7 col-sm-6">
+      <div id="title" class="row">
+        <div id="img-logo" class="col-1">
+          <img
+            src="../../assets/images/icons8-igreja-128.png"
+            style="width: 40px; height: 40px"
+          />
+        </div>
+        <div class="col-10" style="margin-top: 0.8rem">
+          <h1>
+            <strong>Church</strong> <span style="opacity: 0.5">Manager</span>
+          </h1>
+        </div>
+      </div>
+      <div id="img-banner">
+        <img
+          class="img-22-21"
+          src="../../assets/images/brasao_da_paroquia.jpg"
+        />
+      </div>
+    </div>
+    <div id="card-form-login" class="col-lg-5 col-md-5 col-sm-5">
+      <mat-card>
+        <div
+          id="title-form-login"
+          class="row d-flex justify-content-center"
+          style="margin-bottom: 1rem"
+        >
+          <div class="col-12 d-flex justify-content-center">
+            <h1>Bem Vindo</h1>
+          </div>
+          <div class="col-12 d-flex justify-content-center">
+            <h5>Faça Login para prosseguir com a aplicação</h5>
+          </div>
+        </div>
+        <form [formGroup]="formLogin" class="example-form">
+          <div class="row d-flex justify-content-center">
+            <div class="col-10">
+              <div class="relative">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Login</mat-label>
+                  <input
+                    matInput
+                    placeholder="Login..."
+                    formControlName="login"
+                  />
+                </mat-form-field>
+                <mat-icon class="center-v" aria-hidden="false">person</mat-icon>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="relative">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Senha</mat-label>
+                  <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    matInput
+                    placeholder="Senha..."
+                    formControlName="password"
+                  />
+                </mat-form-field>
+                <button
+                  class="btn center-v-password"
+                  type="button"
+                  (click)="showPassword = !showPassword"
+                >
+                  <mat-icon aria-hidden="false">{{
+                    showPassword ? "visibility" : "visibility_off"
+                  }}</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div
+            id="btn-login"
+            class="col d-flex justify-content-center align-items-center"
+          >
+            <button
+              (click)="authenticate()"
+              [disabled]="formLogin.invalid"
+              class="btn d-flex justify-content-center align-items-center"
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

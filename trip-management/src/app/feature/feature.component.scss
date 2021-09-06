@@ -1,0 +1,15 @@
+#menu {
+  display: block;
+}
+#menu-up {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  #menu-up {
+    display: block;
+  }
+  #menu {
+    display: none;
+  }
+}

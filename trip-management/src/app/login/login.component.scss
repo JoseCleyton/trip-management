@@ -1,0 +1,101 @@
+#card-form-login {
+  padding: 2rem;
+}
+
+#title {
+  margin-top: 2rem;
+}
+
+.img-22-21 {
+  width: 22rem;
+  height: 21rem;
+}
+
+#img-banner {
+  margin-top: 5rem;
+  margin-left: 3rem;
+}
+
+#card-form-login mat-card {
+  background-color: #738dda;
+  color: white;
+  border-radius: 0.8rem;
+  height: 32rem;
+}
+
+#title-form-login {
+  margin-top: 4rem;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.relative {
+  position: relative;
+}
+
+.center-v {
+  color: white;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  display: block;
+  right: 0rem;
+}
+.center-v-password {
+  color: white;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  display: block;
+  right: -0.8rem;
+}
+mat-label {
+  color: white;
+}
+a {
+  color: white;
+}
+
+#btn-login button {
+  color: #738dda;
+  background-color: white;
+  width: 8.2rem;
+  height: 2.3rem;
+  border-radius: 1rem;
+  font-size: large;
+  font-weight: 600;
+}
+#btn-login {
+  margin-top: 3rem;
+}
+
+#forget-password {
+  margin-right: 2rem;
+}
+
+@media screen and (max-width: 360px) {
+  #img-banner {
+    display: none;
+  }
+  #card-form-login mat-card {
+    height: 28rem;
+  }
+  #title-form-login {
+    margin-top: 2rem;
+  }
+  #img-logo {
+    margin-right: 1rem;
+  }
+  #title {
+    margin-top: 1rem;
+    margin-bottom: 0;
+  }
+}

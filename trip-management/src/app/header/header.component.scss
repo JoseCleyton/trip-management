@@ -1,0 +1,39 @@
+#header {
+  margin-top: 3rem;
+  margin-bottom: 0;
+}
+
+.relative {
+  position: relative;
+}
+
+.center-v {
+  top: 58%;
+  transform: translateY(-50%);
+  position: absolute;
+  display: block;
+  right: -4rem;
+}
+.header-search-input {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: #f1f3f5;
+  border-radius: 9999px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 15rem;
+}
+#btn-toggle {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  #search {
+    display: none;
+  }
+  #header {
+    margin: 0;
+  }
+  #title {
+    margin-top: 1rem;
+  }
+}
