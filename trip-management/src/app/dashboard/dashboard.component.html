@@ -4,34 +4,13 @@
     <mat-card class="mat-card">
       <div class="row">
         <div class="col-12">
-          <img
-            class="img-60-60"
-            src="../../assets/images/icons8-igreja-128.png"
-          />
+          <img class="img-60-60" src="../../assets/images/icons8-customer-service-64.png" />
         </div>
-        <div class="col-6 d-flex justify-content-start align-items-center mt-1">
-          <h4>Capelas</h4>
+        <div class="col d-flex justify-content-start align-items-center mt-1">
+          <h4>Chamados Abertos</h4>
         </div>
-        <div class="col-6 d-flex justify-content-end align-items-center mt-1">
+        <div class="col d-flex justify-content-end align-items-center mt-1">
           <p class="p">{{ quantityChurch }}</p>
-        </div>
-      </div>
-    </mat-card>
-  </div>
-  <div class="col">
-    <mat-card class="mat-card">
-      <div class="row">
-        <div class="col-12">
-          <img
-            class="img-60-60"
-            src="../../assets/images/icons8-chamada-em-conferencia-50.png"
-          />
-        </div>
-        <div class="col-6 d-flex justify-content-start align-items-center mt-1">
-          <h4>Dizimistas</h4>
-        </div>
-        <div class="col-6 d-flex justify-content-end align-items-center mt-1">
-          <p class="p">{{ quantityChristian }}</p>
         </div>
       </div>
     </mat-card>
@@ -40,20 +19,50 @@
     <mat-card class="mat-card">
       <div class="row">
         <div class="col-12">
-          <img
-            class="img-60-60"
-            src="../../assets/images/icons8-dinheiro-150.png"
-          />
+          <img class="img-60-60" src="../../assets/images/icons8-verificar-arquivo-64.png" />
         </div>
-        <div class="col-6 d-flex justify-content-start align-items-center mt-1">
-          <h4>Dízimos</h4>
+        <div class="col d-flex justify-content-start align-items-center mt-1">
+          <h4>Chamados Concluidos</h4>
         </div>
-        <div class="col-6 d-flex justify-content-end align-items-center mt-1">
-          <p class="p">{{ totalTithings | currency: "BRL":"symbol" }}</p>
+        <div class="col d-flex justify-content-end align-items-center mt-1">
+          <p class="p">{{ quantityChurch }}</p>
         </div>
       </div>
     </mat-card>
   </div>
+
+  <div class="col">
+    <mat-card class="mat-card">
+      <div class="row">
+        <div class="col-12">
+          <img class="img-60-60" src="../../assets/images/icons8-chamada-em-conferencia-50.png" />
+        </div>
+        <div class="col-6 d-flex justify-content-start align-items-center mt-1">
+          <h4>Clientes</h4>
+        </div>
+        <div class="col-6 d-flex justify-content-end align-items-center pt-3 mt-1">
+          <p class="p">{{ quantityChristian }}</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="col">
+    <mat-card class="mat-card">
+      <div class="row">
+        <div class="col-12">
+          <img class="img-60-60" src="../../assets/images/icons8-dinheiro-150.png" />
+        </div>
+        <div class="col-6 d-flex justify-content-start align-items-center mt-1">
+          <h4>Custos</h4>
+        </div>
+        <div class="col-6 d-flex justify-content-end align-items-center mt-1">
+          <p class="p">R$ 1.000,00</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
 </div>
 
 <div class="row" id="section-two">
@@ -68,14 +77,8 @@
         </button>
       </div>
       <div class="col-12">
-        <canvas
-          baseChart
-          [datasets]="lineChartDataPolarArea"
-          [labels]="lineChartLabelsPolarArea"
-          [colors]="lineChartColorsPolarArea"
-          [legend]="lineChartLegendPolarArea"
-          [chartType]="lineChartTypePolarArea"
-        >
+        <canvas baseChart [datasets]="lineChartDataPolarArea" [labels]="lineChartLabelsPolarArea"
+          [colors]="lineChartColorsPolarArea" [legend]="lineChartLegendPolarArea" [chartType]="lineChartTypePolarArea">
         </canvas>
       </div>
     </div>
@@ -91,14 +94,8 @@
         </button>
       </div>
       <div class="col-12">
-        <canvas
-          baseChart
-          [datasets]="lineChartDataBar"
-          [labels]="lineChartLabelsBar"
-          [colors]="lineChartColorsBar"
-          [legend]="lineChartLegendBar"
-          [chartType]="lineChartTypeBar"
-        >
+        <canvas baseChart [datasets]="lineChartDataBar" [labels]="lineChartLabelsBar" [colors]="lineChartColorsBar"
+          [legend]="lineChartLegendBar" [chartType]="lineChartTypeBar">
         </canvas>
       </div>
     </div>

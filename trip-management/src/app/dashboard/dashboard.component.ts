@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   public quantityChurch: number;
   public quantityChristian: number;
-  public totalTithings: number;
 
   public subscription: Subscription = new Subscription();
   public tithings: Tithing[];
@@ -45,7 +44,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dispatchIsUser();
     this.subscribeToQuantityChurch();
     this.subscribeToQuantityChristians();
-    this.subscribeToTotalTithings();
     this.subscribeToListTithings();
   }
 
@@ -69,16 +67,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         .pipe(select(fromChristian.selectors.selectQuantityChristians))
         .subscribe((state) => {
           this.quantityChristian = state;
-        })
-    );
-  }
-
-  public subscribeToTotalTithings() {
-    this.subscription.add(
-      this.store$
-        .pipe(select(fromTithing.selectors.selectTotal))
-        .subscribe((state) => {
-          this.totalTithings = state;
         })
     );
   }
@@ -131,7 +119,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.lineChartDataBar = [
       {
         data: dataValue,
-        label: 'Dízimos Por dia',
+        label: 'Chamados Atendidos por Dia',
       },
     ];
 
@@ -178,7 +166,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.lineChartDataPolarArea = [
       {
         data: dataValue,
-        label: 'Dízimos Por dia',
+        label: 'Chamados Atendidos por Dia',
       },
     ];
 

@@ -16,11 +16,13 @@ export class HeaderComponent implements OnInit {
 
   private getTitle(url: string): string {
     const TITLE = {
-      '/feature/church': 'Igrejas',
+      '/feature/customer-service': 'Chamados',
       '/feature/dashboard': 'Dashboard',
-      '/feature/christians': 'Dizimistas',
+      '/feature/client': 'Clientes',
       '/feature/report': 'Relatório',
-      '/feature/message': 'Mensagens',
+      '/feature/technician': 'Técnicos',
+      '/feature/cost-center': 'Centros de Custo',
+      '/feature/user': 'Usuários'
     };
     return TITLE[url];
   }

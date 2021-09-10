@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LogoutComponent } from '../shared/components/ui/logout/logout.component';
 import { ChangePasswordComponent } from '../shared/components/ui/change-password/change-password.component';
+import { PROFILE } from '../shared/contants/profile-enum';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -13,8 +14,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   public url = '';
   public isAdmin = false;
 
+  public profiles = PROFILE
   public subscription: Subscription = new Subscription();
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.isAdmin = localStorage.getItem('isAdmin') === 'A' ? true : false;

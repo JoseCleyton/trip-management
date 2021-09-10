@@ -51,7 +51,7 @@
       height: 18px;
       background-color: #333;
   
-      border-radius: 100%;
+      border-radius: 20%;
       display: inline-block;
     }
   }
@@ -65,13 +65,21 @@
     }
   
     .loading-indicator__bounce1 {
-      -webkit-animation-delay: -0.32s;
-      animation-delay: -0.32s;
+      -webkit-animation-delay: -0.64s;
+      animation-delay: -0.64s;
     }
   
     .loading-indicator__bounce2 {
+      -webkit-animation-delay: -0.48s;
+      animation-delay: -0.48s;
+    }
+    .loading-indicator__bounce3 {
       -webkit-animation-delay: -0.16s;
       animation-delay: -0.16s;
+    }
+    .loading-indicator__bounce4 {
+      -webkit-animation-delay: -0.0s;
+      animation-delay: -0.0s;
     }
   }
   
