@@ -22,27 +22,27 @@ const routes: Routes = [
       {
         path: 'customer-service',
         loadChildren: () =>
-          import('../church/church.module').then((m) => m.ChurchModule),
+          import('../customer-service/customer-service.module').then((m) => m.CustomerServiceModule),
       },
       {
         path: 'user',
         loadChildren: () =>
           import('../church/church.module').then((m) => m.ChurchModule),
       },
-      {
-        path: 'technician',
-        loadChildren: () =>
-          import('../christians/christians.module').then(
-            (m) => m.ChristiansModule
-          ),
-      },
-      {
-        path: 'cost-center',
-        loadChildren: () =>
-          import('../christians/christians.module').then(
-            (m) => m.ChristiansModule
-          ),
-      },
+      // {
+      //   path: 'technician',
+      //   loadChildren: () =>
+      //     import('../christians/customer-service.module').then(
+      //       (m) => m.ChristiansModule
+      //     ),
+      // },
+      // {
+      //   path: 'cost-center',
+      //   loadChildren: () =>
+      //     import('../christians/customer-service.module').then(
+      //       (m) => m.ChristiansModule
+      //     ),
+      // },
       {
         path: 'report',
         loadChildren: () =>

@@ -8,7 +8,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { DialogViewComponent } from '../shared/components/ui/dialog-view/dialog-view.component';
-import { PayTithingComponent } from './pay-tithing/pay-tithing.component';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../state';
 import * as fromChristian from '../state/christian';
@@ -22,13 +21,13 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { ChristianService } from '../shared/service/christian/christian.service';
 @Component({
-  selector: 'app-christians',
-  templateUrl: './christians.component.html',
-  styleUrls: ['./christians.component.scss'],
+  selector: 'app-customer-service',
+  templateUrl: './customer-service.component.html',
+  styleUrls: ['./customer-service.component.scss'],
 })
 export class ChristiansComponent implements OnInit, OnDestroy {
   public christians: Christian[] = [];
-  public type = 'christian';
+  public type = 'customer-service';
 
   public buttonsView = [
     { function: 'Fechar', type: 'basic', justify: 'center' },
@@ -111,13 +110,7 @@ export class ChristiansComponent implements OnInit, OnDestroy {
       width: '400px',
     });
   }
-  public openModalPayTithing(christian: any) {
-    this.store$.dispatch(new fromChristian.actions.SelectChristian(christian));
-    this.dialog.open(PayTithingComponent, {
-      width: '600px',
-    });
-  }
-
+  
   public subscribeToChristians() {
     this.subscription.add(
       this.store$

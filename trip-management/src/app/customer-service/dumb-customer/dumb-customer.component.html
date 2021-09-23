@@ -1,0 +1,68 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="thead">
+      <tr>
+        <!-- <th>
+          <mat-checkbox *ngIf="customersService && customersService.length > 0" #checkBoxAll class="example-margin"
+            (change)="selectAll($event.checked)"></mat-checkbox>
+        </th> -->
+        <th scope="col">N.</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Data Abertura</th>
+        <th scope="col">Data Atendimento</th>
+        <th scope="col">Status</th>
+        <th scope="col">Ação</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="customersService.length > 0; else empty">
+      <tr *ngFor="let item of customersService" (click)="selectCustomerService(item)">
+        <!-- <td (click)="preventDefault($event)">
+          <mat-checkbox class="example-margin" #checkBox [value]="isInserted(item.id)" (click)="selectIten(item)">
+          </mat-checkbox>
+        </td> -->
+        <td>
+          <p class="number-user">{{ item.id }}</p>
+        </td>
+        <td>
+          <img alt="Icon User" class="img-30-30" src="../../assets/images/icons8-usuario-masculino-50.png" />{{
+          item.name }}
+        </td>
+        <td>
+          <img alt="Icon date" class="img-30-30" src="../../assets/images/icons8-data-ate-64.png" />{{ item.birthDate
+          | date: "dd/MM/yyyy" }}
+        </td>
+        <td>
+          <img alt="Icon date" class="img-30-30" src="../../assets/images/icons8-data-ate-64.png" />{{ item.birthDate
+          | date: "dd/MM/yyyy" }}
+        </td>
+        <td>
+          <img class="img-30-30" src="../../assets/images/icons8-telefone-sem-uso-100.png" />
+          {{ item.phone | phoneCustom }}
+        </td>
+        <td (click)="preventDefault($event)">
+          <button class="btn" type="button" [matMenuTriggerFor]="menu">
+            <mat-icon aria-hidden="false">more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="edit(item)">
+              <mat-icon aria-hidden="false">edit</mat-icon>
+              Editar
+            </button>
+            <button mat-menu-item (click)="delete(item)">
+              <mat-icon aria-hidden="false">delete</mat-icon> Excluir
+            </button>
+          </mat-menu>
+        </td>
+      </tr>
+    </tbody>
+    <ng-template #empty>
+      <tr>
+        <td colspan="6">
+          <div class="alert alert-warning d-flex justify-content-center">
+            Nenhum resultado para sua busca
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </table>
+</div>

@@ -1,4 +1,4 @@
-import { ChristiansComponent } from './christians.component';
+import { ChristiansComponent } from './customer-service.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

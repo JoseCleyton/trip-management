@@ -1,6 +1,6 @@
 <div class="container">
-  <h1>Novo Dizimista</h1>
-  <form [formGroup]="formAddChristian">
+  <h1>Novo Chamado</h1>
+  <form [formGroup]="formEditChristian">
     <div class="row">
       <div class="col-12 d-flex align-items-center">
         <h4>Dados Pessoais</h4>
@@ -13,8 +13,8 @@
           <input matInput formControlName="name" />
           <mat-error
             *ngIf="
-              formAddChristian.get('name').touched &&
-              formAddChristian.get('name').hasError('required')
+              formEditChristian.get('name').touched &&
+              formEditChristian.get('name').hasError('required')
             "
           >
             Nome é <strong>obrigatório</strong>
@@ -27,8 +27,8 @@
           <input matInput formControlName="birthDate" mask="00/00/0000" />
           <mat-error
             *ngIf="
-              formAddChristian.get('birthDate').touched &&
-              formAddChristian.get('birthDate').hasError('required')
+              formEditChristian.get('birthDate').touched &&
+              formEditChristian.get('birthDate').hasError('required')
             "
           >
             Data de Nascimento é <strong>obrigatório</strong>
@@ -57,8 +57,8 @@
           <input matInput formControlName="city" />
           <mat-error
             *ngIf="
-              formAddChristian.get('city').touched &&
-              formAddChristian.get('city').hasError('required')
+              formEditChristian.get('city').touched &&
+              formEditChristian.get('city').hasError('required')
             "
           >
             Cidade é <strong>obrigatório</strong>
@@ -71,8 +71,8 @@
           <input matInput formControlName="district" />
           <mat-error
             *ngIf="
-              formAddChristian.get('district').touched &&
-              formAddChristian.get('district').hasError('required')
+              formEditChristian.get('district').touched &&
+              formEditChristian.get('district').hasError('required')
             "
           >
             Bairro é <strong>obrigatório</strong>
@@ -87,8 +87,8 @@
           <input matInput formControlName="street" />
           <mat-error
             *ngIf="
-              formAddChristian.get('street').touched &&
-              formAddChristian.get('street').hasError('required')
+              formEditChristian.get('street').touched &&
+              formEditChristian.get('street').hasError('required')
             "
           >
             Rua é <strong>obrigatório</strong>
@@ -101,8 +101,8 @@
           <input type="number" matInput formControlName="number" />
           <mat-error
             *ngIf="
-              formAddChristian.get('number').touched &&
-              formAddChristian.get('number').hasError('required')
+              formEditChristian.get('number').touched &&
+              formEditChristian.get('number').hasError('required')
             "
           >
             Número é <strong>obrigatório</strong>
@@ -119,10 +119,10 @@
       <button
         mat-raised-button
         color="primary"
-        [disabled]="formAddChristian.invalid"
-        (click)="add()"
+        [disabled]="formEditChristian.invalid"
+        (click)="edit()"
       >
-        Cadastrar
+        Editar
       </button>
     </div>
   </div>

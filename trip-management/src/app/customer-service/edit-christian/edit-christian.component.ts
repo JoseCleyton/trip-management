@@ -21,9 +21,10 @@ export class EditChristianComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<EditChristianComponent>,
     private store$: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.createForm();
     this.subscribeToSelectChristian();
   }
   ngOnDestroy() {
@@ -37,7 +38,7 @@ export class EditChristianComponent implements OnInit, OnDestroy {
         .subscribe((state) => {
           this.selectedChristian = state;
           if (this.selectedChristian) {
-            this.createForm();
+            this.updateForm();
           }
         })
     );
@@ -45,25 +46,38 @@ export class EditChristianComponent implements OnInit, OnDestroy {
 
   public createForm() {
     this.formEditChristian = new FormGroup({
-      name: new FormControl(this.selectedChristian.name, [Validators.required]),
-      phone: new FormControl(this.selectedChristian.phone),
-      email: new FormControl(this.selectedChristian.email),
-      birthDate: new FormControl(this.selectedChristian.birthDate, [
+      name: new FormControl(null, [Validators.required]),
+      phone: new FormControl(null),
+      email: new FormControl(null),
+      birthDate: new FormControl(null, [
         Validators.required,
       ]),
-      city: new FormControl(this.selectedChristian.address.city, [
+      city: new FormControl(null, [
         Validators.required,
       ]),
-      street: new FormControl(this.selectedChristian.address.street, [
+      street: new FormControl(null, [
         Validators.required,
       ]),
-      number: new FormControl(this.selectedChristian.address.number, [
+      number: new FormControl(null, [
         Validators.required,
       ]),
-      district: new FormControl(this.selectedChristian.address.district, [
+      district: new FormControl(null, [
         Validators.required,
       ]),
     });
+  }
+
+  public updateForm() {
+    this.formEditChristian.get('name').setValue(this.selectedChristian.name);
+    this.formEditChristian.get('phone').setValue(this.selectedChristian.phone);
+    this.formEditChristian.get('email').setValue(this.selectedChristian.email);
+    this.formEditChristian.get('birthDate').setValue(this.selectedChristian.birthDate);
+
+    this.formEditChristian.get('city').setValue(this.selectedChristian.address.city);
+    this.formEditChristian.get('street').setValue(this.selectedChristian.address.street);
+    this.formEditChristian.get('number').setValue(this.selectedChristian.address.number);
+    this.formEditChristian.get('district').setValue(this.selectedChristian.address.district);
+
   }
 
   public edit() {

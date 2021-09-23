@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddChurchComponent } from '../church/add-church/add-church.component';
-import { AddChristianComponent } from '../christians/add-christian/add-christian.component';
+import { AddChristianComponent } from '../customer-service/add-christian/add-christian.component';
 import { Observable, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -16,6 +16,7 @@ import * as fromChurch from '../state/church';
 import * as fromChristian from '../state/christian';
 import { AppState } from '../state';
 import { select, Store } from '@ngrx/store';
+import { EditChristianComponent } from '../customer-service/edit-christian/edit-christian.component';
 @Component({
   selector: 'app-page-header',
   templateUrl: './page-header.component.html',
@@ -123,7 +124,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
   }
 
   public openDialogNewChristian() {
-    this.dialog.open(AddChristianComponent, {
+    this.dialog.open(EditChristianComponent, {
       width: '700px',
     });
   }
