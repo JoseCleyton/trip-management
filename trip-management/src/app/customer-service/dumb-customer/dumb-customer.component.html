@@ -8,6 +8,7 @@
         </th> -->
         <th scope="col">N.</th>
         <th scope="col">Cliente</th>
+        <th scope="col">Técnico</th>
         <th scope="col">Data Abertura</th>
         <th scope="col">Data Atendimento</th>
         <th scope="col">Status</th>
@@ -22,6 +23,10 @@
         </td> -->
         <td>
           <p class="number-user">{{ item.id }}</p>
+        </td>
+        <td>
+          <img alt="Icon User" class="img-30-30" src="../../assets/images/icons8-usuario-masculino-50.png" />{{
+          item.name }}
         </td>
         <td>
           <img alt="Icon User" class="img-30-30" src="../../assets/images/icons8-usuario-masculino-50.png" />{{
@@ -57,7 +62,7 @@
     </tbody>
     <ng-template #empty>
       <tr>
-        <td colspan="6">
+        <td colspan="7">
           <div class="alert alert-warning d-flex justify-content-center">
             Nenhum resultado para sua busca
           </div>

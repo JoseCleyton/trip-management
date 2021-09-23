@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'user',
         loadChildren: () =>
-          import('../church/church.module').then((m) => m.ChurchModule),
+          import('../user/user.module').then((m) => m.UserModule),
       },
       // {
       //   path: 'technician',

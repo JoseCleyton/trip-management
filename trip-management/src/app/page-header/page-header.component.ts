@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddChurchComponent } from '../church/add-church/add-church.component';
-import { AddChristianComponent } from '../customer-service/add-christian/add-christian.component';
 import { Observable, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -36,7 +35,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
   public subjectSearchByNumberChristian$: Subject<any> = new Subject();
 
   public formFilterChristian: FormGroup;
-  public formFilterChurch: FormGroup;
+  public formFilterUser: FormGroup;
 
   @Output() searchNameChristian: EventEmitter<string> = new EventEmitter();
   @Output() searchNumberChristian: EventEmitter<string> = new EventEmitter();
@@ -165,8 +164,8 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
   }
 
   private createForms() {
-    if (this.type === 'church') {
-      this.formFilterChurch = new FormGroup({
+    if (this.type === 'user') {
+      this.formFilterUser = new FormGroup({
         name: new FormControl(null),
       });
     } else {
@@ -178,7 +177,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     }
   }
   public createSubscriptions() {
-    if (this.type === 'church') {
+    if (this.type === 'user') {
       this.subscribeToChurchFilters();
     } else {
       this.subscribeToChristianFilters();
@@ -190,7 +189,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
         .pipe(select(fromChurch.selectors.selectFilters))
         .subscribe((state) => {
           if (state) {
-            this.formFilterChurch.get('name').setValue(state.name);
+            this.formFilterUser.get('name').setValue(state.name);
           }
         })
     );

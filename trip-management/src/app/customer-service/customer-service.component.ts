@@ -84,12 +84,14 @@ export class ChristiansComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public selectChristian(christian: Christian) {
-    this.store$.dispatch(new fromChristian.actions.SelectChristian(christian));
+  public selectCustomerService(customerService: any) {
+    this.store$.dispatch(
+      new fromChristian.actions.SelectChristian(customerService)
+    );
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
-        typeOfData: 'christian',
+        typeOfData: 'customer-service',
       },
     });
   }
@@ -110,7 +112,7 @@ export class ChristiansComponent implements OnInit, OnDestroy {
       width: '400px',
     });
   }
-  
+
   public subscribeToChristians() {
     this.subscription.add(
       this.store$

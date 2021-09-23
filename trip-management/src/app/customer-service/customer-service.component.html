@@ -24,7 +24,7 @@
   </div>
   <div class="container">
     <app-dumb-customer [customersService]="christians" [selectedCustomersService]="selectedChristians"
-      (selectCustomerServiceEvent)="selectChristian($event)" (editCustomerServiceEvent)="edit($event)"
+      (selectCustomerServiceEvent)="selectCustomerService($event)" (editCustomerServiceEvent)="edit($event)"
       (deleteCustomerServiceEvent)="delete($event)" (selectItenEvent)="select($event)"
       (selectAllRetrieveEvent)="selectAllRetrive()">
     </app-dumb-customer>
