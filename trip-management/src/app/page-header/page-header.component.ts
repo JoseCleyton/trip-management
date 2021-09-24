@@ -1,3 +1,4 @@
+import { EditCustomerServiceComponent } from '../customer-service/edit-customer-service/edit-customer-service.component';
 import {
   Component,
   EventEmitter,
@@ -7,7 +8,6 @@ import {
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddChurchComponent } from '../church/add-church/add-church.component';
 import { Observable, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -15,7 +15,10 @@ import * as fromChurch from '../state/church';
 import * as fromChristian from '../state/christian';
 import { AppState } from '../state';
 import { select, Store } from '@ngrx/store';
-import { EditChristianComponent } from '../customer-service/edit-christian/edit-christian.component';
+import { EditClientComponent } from '../client/edit-client/edit-client.component';
+import { EditUserComponent } from '../user/edit-user/edit-user.component';
+import { EditCostCenterComponent } from '../cost-center/edit-cost-center/edit-cost-center.component';
+import { EditTechnicianComponent } from '../technician/edit-technician/edit-technician.component';
 @Component({
   selector: 'app-page-header',
   templateUrl: './page-header.component.html',
@@ -34,13 +37,22 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
   public searchByNumberChristian$: Observable<any> = new Observable();
   public subjectSearchByNumberChristian$: Subject<any> = new Subject();
 
-  public formFilterChristian: FormGroup;
   public formFilterUser: FormGroup;
 
+  public formFilterChristian: FormGroup;
   @Output() searchNameChristian: EventEmitter<string> = new EventEmitter();
   @Output() searchNumberChristian: EventEmitter<string> = new EventEmitter();
   @Output() searchMonth: EventEmitter<string> = new EventEmitter();
   @Output() reset: EventEmitter<string> = new EventEmitter();
+
+  public formFilterClient: FormGroup;
+  @Output() searchNameClient: EventEmitter<string> = new EventEmitter();
+
+  public formFilterCostCenter: FormGroup;
+  @Output() searchNameCostCenter: EventEmitter<string> = new EventEmitter();
+
+  public formFilterTechnician: FormGroup;
+  @Output() searchNameTechnician: EventEmitter<string> = new EventEmitter();
 
   public filtersChristian: any;
   public subscription: Subscription = new Subscription();
@@ -122,14 +134,32 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public openDialogNewChristian() {
-    this.dialog.open(EditChristianComponent, {
-      width: '700px',
+  public openDialogNewCustomerService() {
+    this.dialog.open(EditCustomerServiceComponent, {
+      width: '900px',
     });
   }
 
-  public openDialogNewChurch() {
-    this.dialog.open(AddChurchComponent, {
+  public openDialogNewUser() {
+    this.dialog.open(EditUserComponent, {
+      width: '900px',
+    });
+  }
+
+  public openDialogNewClient() {
+    this.dialog.open(EditClientComponent, {
+      width: '900px',
+    });
+  }
+
+  public openDialogNewCostCenter() {
+    this.dialog.open(EditCostCenterComponent, {
+      width: '900px',
+    });
+  }
+
+  public openDialogNewTechnician() {
+    this.dialog.open(EditTechnicianComponent, {
       width: '900px',
     });
   }
@@ -168,7 +198,27 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
       this.formFilterUser = new FormGroup({
         name: new FormControl(null),
       });
-    } else {
+    }
+
+    if (this.type === 'client') {
+      this.formFilterClient = new FormGroup({
+        name: new FormControl(null),
+      });
+    }
+
+    if (this.type === 'cost-center') {
+      this.formFilterCostCenter = new FormGroup({
+        name: new FormControl(null),
+      });
+    }
+
+    if (this.type === 'technician') {
+      this.formFilterTechnician = new FormGroup({
+        name: new FormControl(null),
+      });
+    }
+
+    if (this.type === 'customer-service') {
       this.formFilterChristian = new FormGroup({
         number: new FormControl(null),
         name: new FormControl(null),
@@ -176,13 +226,28 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
       });
     }
   }
+
   public createSubscriptions() {
     if (this.type === 'user') {
       this.subscribeToChurchFilters();
-    } else {
+    }
+    if (this.type === 'client') {
+      this.formFilterClient.get('name').setValue('');
+    }
+
+    if (this.type === 'cost-center') {
+      this.formFilterCostCenter.get('name').setValue('');
+    }
+
+    if (this.type === 'technician') {
+      this.formFilterTechnician.get('name').setValue('');
+    }
+
+    if (this.type === 'customer-service') {
       this.subscribeToChristianFilters();
     }
   }
+
   public subscribeToChurchFilters() {
     this.subscription.add(
       this.store$

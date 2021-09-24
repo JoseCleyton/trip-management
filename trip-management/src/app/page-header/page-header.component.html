@@ -42,7 +42,7 @@
     </div>
 
     <div class="col mt-2" style="max-height: 2.4rem">
-      <button color="primary" mat-raised-button (click)="openDialogNewChristian()">
+      <button color="primary" mat-raised-button (click)="openDialogNewCustomerService()">
         <mat-icon aria-hidden="false">add</mat-icon> Novo
       </button>
     </div>
@@ -61,7 +61,64 @@
     </div>
 
     <div class="col mt-2" style="max-height: 2.4rem">
-      <button color="primary" mat-raised-button (click)="openDialogNewChurch()">
+      <button color="primary" mat-raised-button (click)="openDialogNewUser()">
+        <mat-icon aria-hidden="false">add</mat-icon> Novo
+      </button>
+    </div>
+  </div>
+</form>
+
+<form *ngIf="type === 'client'" [formGroup]="formFilterClient">
+  <div class="row ml-6">
+    <div class="col">
+      <mat-form-field class="w-30">
+        <mat-label>Nome do Cliente</mat-label>
+        <input #input (input)="searchByNameChurch(input.value)" matInput placeholder="Nome" formControlName="name" />
+        <mat-icon *ngIf="formFilterClient.get('name').value.length > 0" id="iconClose" matSuffix
+          (click)="resetSearch()">close</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col mt-2" style="max-height: 2.4rem">
+      <button color="primary" mat-raised-button (click)="openDialogNewClient()">
+        <mat-icon aria-hidden="false">add</mat-icon> Novo
+      </button>
+    </div>
+  </div>
+</form>
+
+<form *ngIf="type === 'cost-center'" [formGroup]="formFilterCostCenter">
+  <div class="row ml-6">
+    <div class="col">
+      <mat-form-field class="w-30">
+        <mat-label>Centro de Custo</mat-label>
+        <input #input (input)="searchByNameChurch(input.value)" matInput placeholder="Nome" formControlName="name" />
+        <mat-icon *ngIf="formFilterCostCenter.get('name').value.length > 0" id="iconClose" matSuffix
+          (click)="resetSearch()">close</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col mt-2" style="max-height: 2.4rem">
+      <button color="primary" mat-raised-button (click)="openDialogNewCostCenter()">
+        <mat-icon aria-hidden="false">add</mat-icon> Novo
+      </button>
+    </div>
+  </div>
+</form>
+
+<form *ngIf="type === 'technician'" [formGroup]="formFilterTechnician">
+  <div class="row ml-6">
+    <div class="col">
+      <mat-form-field class="w-30">
+        <mat-label>Nome do Técnico</mat-label>
+        <input #input (input)="searchByNameChurch(input.value)" matInput placeholder="Nome" formControlName="name" />
+        <mat-icon *ngIf="formFilterTechnician.get('name').value.length > 0" id="iconClose" matSuffix
+          (click)="resetSearch()">close</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col mt-2" style="max-height: 2.4rem">
+      <button color="primary" mat-raised-button (click)="openDialogNewTechnician()">
         <mat-icon aria-hidden="false">add</mat-icon> Novo
       </button>
     </div>

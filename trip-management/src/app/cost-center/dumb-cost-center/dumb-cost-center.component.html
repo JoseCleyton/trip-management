@@ -8,8 +8,8 @@
             <th scope="col">Ação</th>
         </tr>
     </thead>
-    <tbody *ngIf="users.length > 0; else empty">
-        <tr *ngFor="let item of users" (click)="selectUser(item)">
+    <tbody *ngIf="costsCenter.length > 0; else empty">
+        <tr *ngFor="let item of costsCenter" (click)="selectCostCenter(item)">
             <td>
                 <img alt="" class="img-30-30" src="../../assets/images/icons8-igreja-128.png" />
                 {{ item.name }}

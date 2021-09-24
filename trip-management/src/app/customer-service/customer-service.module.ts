@@ -1,3 +1,4 @@
+import { EditCustomerServiceComponent } from './edit-customer-service/edit-customer-service.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { PaginatorModule } from '../paginator/paginator.module';
@@ -15,7 +16,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMaskModule } from 'ngx-mask';
-import { EditChristianComponent } from './edit-christian/edit-christian.component';
 import { DeleteChristianComponent } from './delete-christian/delete-christian.component';
 import { datePipeFormatPipe } from '../shared/pipes/datePipeTransform';
 import { PipeModule } from '../shared/pipes/pipe.module';
@@ -24,7 +24,7 @@ import { DumbCustomerComponent } from './dumb-customer/dumb-customer.component';
 @NgModule({
   declarations: [
     ChristiansComponent,
-    EditChristianComponent,
+    EditCustomerServiceComponent,
     DeleteChristianComponent,
     DumbCustomerComponent,
   ],

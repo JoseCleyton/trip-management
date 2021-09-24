@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
@@ -7,17 +7,18 @@ import { DialogViewComponent } from '../shared/components/ui/dialog-view/dialog-
 import { PageInfo } from '../shared/model/page-info.model';
 import { Pageable } from '../shared/model/pageable.model';
 import { AppState } from '../state';
+import { DeleteTechnicianComponent } from './delete-technician/delete-technician.component';
+import { EditTechnicianComponent } from './edit-technician/edit-technician.component';
 import * as fromChurch from '../state/church';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
+
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
+  selector: 'app-technician',
+  templateUrl: './technician.component.html',
+  styleUrls: ['./technician.component.scss']
 })
-export class UserComponent implements OnInit, OnDestroy {
-  public type = 'user';
-  public users: any[];
+export class TechnicianComponent implements OnInit {
+  public type = 'technician';
+  public technicians: any[];
   public pageable: Pageable;
   public pageInfo: PageInfo;
 
@@ -86,7 +87,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.store$
         .pipe(select(fromChurch.selectors.selectChurchs))
         .subscribe((state) => {
-          this.users = state;
+          this.technicians = state;
         })
     );
   }
@@ -154,25 +155,25 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public selectUser(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
+  public selectTechnician(technician: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(technician));
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
-        typeOfData: 'user',
+        typeOfData: 'technician',
       },
     });
   }
 
-  public edit(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(EditUserComponent, {
+  public edit(technician: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(technician));
+    this.dialog.open(EditTechnicianComponent, {
       width: '900px',
     });
   }
-  public delete(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(DeleteUserComponent, {
+  public delete(technician: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(technician));
+    this.dialog.open(DeleteTechnicianComponent, {
       width: '450px',
     });
   }

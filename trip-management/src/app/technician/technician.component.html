@@ -3,8 +3,8 @@
     <app-page-header [type]="type" (searchNameChurch)="searchByNameUser($event)" (reset)="resetSearch()">
     </app-page-header>
     <div class="table-responsive">
-        <app-dumb-user [users]="users" (selectUserEvent)="selectUser($event)" (editUserEvent)="edit($event)"
-            (deleteUserEvent)="delete($event)"></app-dumb-user>
+        <app-dumb-technician [technicians]="technicians" (selectTechnicianEvent)="selectTechnician($event)" (editTechnicianEvent)="edit($event)"
+            (deleteTechnicianEvent)="delete($event)"></app-dumb-technician>
         <app-paginator [pageSize]="pageable.size" [length]="pageInfo.totalElements"
             (pageEventEmitter)="loadPage($event)">
         </app-paginator>

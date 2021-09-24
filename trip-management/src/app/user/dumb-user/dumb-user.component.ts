@@ -8,27 +8,26 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class DumbUserComponent implements OnInit {
   @Input() public users: any[];
 
-  @Output() public selectUserEvent: EventEmitter<any> = new EventEmitter();
-  @Output() public editUserEvent: EventEmitter<any> = new EventEmitter();
-  @Output() public deleteUserEvent: EventEmitter<any> = new EventEmitter();
+  @Output() selectUserEvent: EventEmitter<any> = new EventEmitter();
+  @Output() editUserEvent: EventEmitter<any> = new EventEmitter();
+  @Output() deleteUserEvent: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  public selectUser(customerService: any) {
-    this.selectUserEvent.emit(customerService);
+  public selectUser(user: any) {
+    this.selectUserEvent.emit(user);
   }
 
   public preventDefault(event: Event) {
     event.stopPropagation();
   }
 
-  public edit(customerService: any) {
-    this.editUserEvent.emit(customerService);
+  public edit(user: any) {
+    this.editUserEvent.emit(user);
   }
-
-  public delete(customerService: any) {
-    this.deleteUserEvent.emit(customerService);
+  public delete(user: any) {
+    this.deleteUserEvent.emit(user);
   }
 }

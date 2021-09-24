@@ -8,22 +8,22 @@ import { PageInfo } from '../shared/model/page-info.model';
 import { Pageable } from '../shared/model/pageable.model';
 import { AppState } from '../state';
 import * as fromChurch from '../state/church';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
-@Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
-})
-export class UserComponent implements OnInit, OnDestroy {
-  public type = 'user';
-  public users: any[];
-  public pageable: Pageable;
-  public pageInfo: PageInfo;
+import { DeleteClientComponent } from './delete-client/delete-client.component';
+import { EditClientComponent } from './edit-client/edit-client.component';
 
+@Component({
+  selector: 'app-client',
+  templateUrl: './client.component.html',
+  styleUrls: ['./client.component.scss'],
+})
+export class ClientComponent implements OnInit, OnDestroy {
+  public type = 'client';
   public formAddChurch: FormGroup;
   public formFilter: FormGroup;
 
+  public clients: any[] = [];
+  public pageable: Pageable;
+  public pageInfo: PageInfo;
   public filters: any;
   public subscription: Subscription = new Subscription();
 
@@ -49,36 +49,27 @@ export class UserComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public searchByNameUser(nameUser: string) {
-    this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
-        {
-          name: nameUser,
-        },
-        {
-          direction: this.pageable.direction,
-          size: this.pageable.size,
-          sort: this.pageable.sort,
-          page: this.pageable.page,
-        }
-      )
-    );
+  public selectClient(client: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
+    this.dialog.open(DialogViewComponent, {
+      width: '1100px',
+      data: {
+        typeOfData: 'client',
+      },
+    });
   }
 
-  public resetSearch() {
-    this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
-        {
-          name: '',
-        },
-        {
-          direction: this.pageable.direction,
-          size: this.pageable.size,
-          sort: this.pageable.sort,
-          page: this.pageable.page,
-        }
-      )
-    );
+  public edit(client: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
+    this.dialog.open(EditClientComponent, {
+      width: '900px',
+    });
+  }
+  public delete(client: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
+    this.dialog.open(DeleteClientComponent, {
+      width: '450px',
+    });
   }
 
   public subscribeToChurchs() {
@@ -86,7 +77,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.store$
         .pipe(select(fromChurch.selectors.selectChurchs))
         .subscribe((state) => {
-          this.users = state;
+          this.clients = state;
         })
     );
   }
@@ -154,26 +145,35 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public selectUser(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(DialogViewComponent, {
-      width: '1100px',
-      data: {
-        typeOfData: 'user',
-      },
-    });
+  public searchByNameClient(nameClient: string) {
+    this.store$.dispatch(
+      new fromChurch.actions.ListChurchs(
+        {
+          name: nameClient,
+        },
+        {
+          direction: this.pageable.direction,
+          size: this.pageable.size,
+          sort: this.pageable.sort,
+          page: this.pageable.page,
+        }
+      )
+    );
   }
 
-  public edit(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(EditUserComponent, {
-      width: '900px',
-    });
-  }
-  public delete(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(DeleteUserComponent, {
-      width: '450px',
-    });
+  public resetSearch() {
+    this.store$.dispatch(
+      new fromChurch.actions.ListChurchs(
+        {
+          name: '',
+        },
+        {
+          direction: this.pageable.direction,
+          size: this.pageable.size,
+          sort: this.pageable.sort,
+          page: this.pageable.page,
+        }
+      )
+    );
   }
 }

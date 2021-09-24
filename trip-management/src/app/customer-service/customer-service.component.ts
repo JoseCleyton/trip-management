@@ -13,13 +13,13 @@ import { AppState } from '../state';
 import * as fromChristian from '../state/christian';
 import { Subscription } from 'rxjs';
 import { Christian } from '../shared/model/christian.model';
-import { EditChristianComponent } from './edit-christian/edit-christian.component';
 import { DeleteChristianComponent } from './delete-christian/delete-christian.component';
 import { Pageable } from '../shared/model/pageable.model';
 import { PageInfo } from '../shared/model/page-info.model';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { ChristianService } from '../shared/service/christian/christian.service';
+import { EditCustomerServiceComponent } from './edit-customer-service/edit-customer-service.component';
 @Component({
   selector: 'app-customer-service',
   templateUrl: './customer-service.component.html',
@@ -102,7 +102,7 @@ export class ChristiansComponent implements OnInit, OnDestroy {
 
   public edit(christian: Christian) {
     this.store$.dispatch(new fromChristian.actions.SelectChristian(christian));
-    this.dialog.open(EditChristianComponent, {
+    this.dialog.open(EditCustomerServiceComponent, {
       width: '700px',
     });
   }

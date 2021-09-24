@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ChangePasswordComponent } from 'src/app/shared/components/ui/change-password/change-password.component';
 import { LogoutComponent } from 'src/app/shared/components/ui/logout/logout.component';
 
 @Component({
@@ -39,11 +38,11 @@ export class MenuUpComponent implements OnInit {
   }
 
   public changePassword() {
-    this.dialog.open(ChangePasswordComponent, {
-      width: '600px',
-      data: {
-        type: 'admin',
-      },
-    });
+    // this.dialog.open(ChangePasswordComponent, {
+    //   width: '600px',
+    //   data: {
+    //     type: 'admin',
+    //   },
+    // });
   }
 }

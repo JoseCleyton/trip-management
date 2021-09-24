@@ -1,10 +1,10 @@
 <app-header></app-header>
 <div id="list" class="row mt-1">
-    <app-page-header [type]="type" (searchNameChurch)="searchByNameUser($event)" (reset)="resetSearch()">
+    <app-page-header [type]="type" (searchNameChurch)="searchByNameClient($event)" (reset)="resetSearch()">
     </app-page-header>
     <div class="table-responsive">
-        <app-dumb-user [users]="users" (selectUserEvent)="selectUser($event)" (editUserEvent)="edit($event)"
-            (deleteUserEvent)="delete($event)"></app-dumb-user>
+        <app-dumb-client  [clients]="clients" (selectClientEvent)="selectClient($event)" (editClientEvent)="edit($event)"
+        (deleteClientEvent)="delete($event)"></app-dumb-client>
         <app-paginator [pageSize]="pageable.size" [length]="pageInfo.totalElements"
             (pageEventEmitter)="loadPage($event)">
         </app-paginator>

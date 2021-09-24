@@ -17,32 +17,34 @@ const routes: Routes = [
       {
         path: 'client',
         loadChildren: () =>
-          import('../church/church.module').then((m) => m.ChurchModule),
+          import('../client/client.module').then((m) => m.ClientModule),
       },
       {
         path: 'customer-service',
         loadChildren: () =>
-          import('../customer-service/customer-service.module').then((m) => m.CustomerServiceModule),
+          import('../customer-service/customer-service.module').then(
+            (m) => m.CustomerServiceModule
+          ),
       },
       {
         path: 'user',
         loadChildren: () =>
           import('../user/user.module').then((m) => m.UserModule),
       },
-      // {
-      //   path: 'technician',
-      //   loadChildren: () =>
-      //     import('../christians/customer-service.module').then(
-      //       (m) => m.ChristiansModule
-      //     ),
-      // },
-      // {
-      //   path: 'cost-center',
-      //   loadChildren: () =>
-      //     import('../christians/customer-service.module').then(
-      //       (m) => m.ChristiansModule
-      //     ),
-      // },
+      {
+        path: 'technician',
+        loadChildren: () =>
+          import('../technician/technician.module').then(
+            (m) => m.TechnicianModule
+          ),
+      },
+      {
+        path: 'cost-center',
+        loadChildren: () =>
+          import('../cost-center/cost-center.module').then(
+            (m) => m.CostCenterModule
+          ),
+      },
       {
         path: 'report',
         loadChildren: () =>
@@ -56,4 +58,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FeatureRoutingModule { }
+export class FeatureRoutingModule {}

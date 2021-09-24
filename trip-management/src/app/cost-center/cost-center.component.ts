@@ -7,28 +7,28 @@ import { DialogViewComponent } from '../shared/components/ui/dialog-view/dialog-
 import { PageInfo } from '../shared/model/page-info.model';
 import { Pageable } from '../shared/model/pageable.model';
 import { AppState } from '../state';
+import { DeleteCostCenterComponent } from './delete-cost-center/delete-cost-center.component';
+import { EditCostCenterComponent } from './edit-cost-center/edit-cost-center.component';
 import * as fromChurch from '../state/church';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
-@Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
-})
-export class UserComponent implements OnInit, OnDestroy {
-  public type = 'user';
-  public users: any[];
-  public pageable: Pageable;
-  public pageInfo: PageInfo;
 
+@Component({
+  selector: 'app-cost-center',
+  templateUrl: './cost-center.component.html',
+  styleUrls: ['./cost-center.component.scss'],
+})
+export class CostCenterComponent implements OnInit, OnDestroy {
+  public type = 'cost-center';
   public formAddChurch: FormGroup;
   public formFilter: FormGroup;
 
+  public costsCenter: any[] = [];
+  public pageable: Pageable;
+  public pageInfo: PageInfo;
   public filters: any;
   public subscription: Subscription = new Subscription();
 
   constructor(public dialog: MatDialog, private store$: Store<AppState>) {}
-
+ 
   ngOnInit(): void {
     this.subscribeToFilters();
     this.subscribeToPageInfo();
@@ -49,36 +49,28 @@ export class UserComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public searchByNameUser(nameUser: string) {
-    this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
-        {
-          name: nameUser,
-        },
-        {
-          direction: this.pageable.direction,
-          size: this.pageable.size,
-          sort: this.pageable.sort,
-          page: this.pageable.page,
-        }
-      )
-    );
+  public selectCostCenter(client: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
+    this.dialog.open(DialogViewComponent, {
+      width: '1100px',
+      data: {
+        typeOfData: 'cost-center',
+      },
+    });
   }
 
-  public resetSearch() {
-    this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
-        {
-          name: '',
-        },
-        {
-          direction: this.pageable.direction,
-          size: this.pageable.size,
-          sort: this.pageable.sort,
-          page: this.pageable.page,
-        }
-      )
-    );
+  public edit(client: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
+    this.dialog.open(EditCostCenterComponent, {
+      width: '900px',
+    });
+  }
+
+  public delete(client: any) {
+    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
+    this.dialog.open(DeleteCostCenterComponent, {
+      width: '450px',
+    });
   }
 
   public subscribeToChurchs() {
@@ -86,7 +78,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.store$
         .pipe(select(fromChurch.selectors.selectChurchs))
         .subscribe((state) => {
-          this.users = state;
+          this.costsCenter = state;
         })
     );
   }
@@ -154,26 +146,35 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public selectUser(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(DialogViewComponent, {
-      width: '1100px',
-      data: {
-        typeOfData: 'user',
-      },
-    });
+  public searchByNameCostCenter(nameClient: string) {
+    this.store$.dispatch(
+      new fromChurch.actions.ListChurchs(
+        {
+          name: nameClient,
+        },
+        {
+          direction: this.pageable.direction,
+          size: this.pageable.size,
+          sort: this.pageable.sort,
+          page: this.pageable.page,
+        }
+      )
+    );
   }
 
-  public edit(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(EditUserComponent, {
-      width: '900px',
-    });
-  }
-  public delete(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(DeleteUserComponent, {
-      width: '450px',
-    });
+  public resetSearch() {
+    this.store$.dispatch(
+      new fromChurch.actions.ListChurchs(
+        {
+          name: '',
+        },
+        {
+          direction: this.pageable.direction,
+          size: this.pageable.size,
+          sort: this.pageable.sort,
+          page: this.pageable.page,
+        }
+      )
+    );
   }
 }
