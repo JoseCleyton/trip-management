@@ -7,7 +7,7 @@ import { DialogViewComponent } from '../shared/components/ui/dialog-view/dialog-
 import { PageInfo } from '../shared/model/page-info.model';
 import { Pageable } from '../shared/model/pageable.model';
 import { AppState } from '../state';
-import * as fromChurch from '../state/church';
+import * as fromUser from '../state/user';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 @Component({
@@ -35,14 +35,14 @@ export class UserComponent implements OnInit, OnDestroy {
     this.subscribeToPageable();
     this.createForms();
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromUser.actions.ListUsers(
         {
           name: this.filters.name,
         },
         this.pageable
       )
     );
-    this.subscribeToChurchs();
+    this.subscribeToUsers();
   }
 
   ngOnDestroy() {
@@ -51,7 +51,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public searchByNameUser(nameUser: string) {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromUser.actions.ListUsers(
         {
           name: nameUser,
         },
@@ -67,7 +67,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public resetSearch() {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromUser.actions.ListUsers(
         {
           name: '',
         },
@@ -81,10 +81,10 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public subscribeToChurchs() {
+  public subscribeToUsers() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectChurchs))
+        .pipe(select(fromUser.selectors.selectUsers))
         .subscribe((state) => {
           this.users = state;
         })
@@ -94,7 +94,7 @@ export class UserComponent implements OnInit, OnDestroy {
   public subscribeToPageable() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectPageable))
+        .pipe(select(fromUser.selectors.selectPageable))
         .subscribe((state) => {
           this.pageable = { ...state };
         })
@@ -104,7 +104,7 @@ export class UserComponent implements OnInit, OnDestroy {
   public subscribeToPageInfo() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectPageInfo))
+        .pipe(select(fromUser.selectors.selectPageInfo))
         .subscribe((state) => {
           this.pageInfo = { ...state };
         })
@@ -114,7 +114,7 @@ export class UserComponent implements OnInit, OnDestroy {
   public subscribeToFilters() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectFilters))
+        .pipe(select(fromUser.selectors.selectFilters))
         .subscribe((state) => {
           this.filters = { ...state };
         })
@@ -140,7 +140,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public loadPage(page: number) {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromUser.actions.ListUsers(
         {
           name: this.filters.name,
         },
@@ -155,7 +155,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   public selectUser(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
+    this.store$.dispatch(new fromUser.actions.SelectUser(user));
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
@@ -165,13 +165,13 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   public edit(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
+    this.store$.dispatch(new fromUser.actions.SelectUser(user));
     this.dialog.open(EditUserComponent, {
       width: '900px',
     });
   }
   public delete(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
+    this.store$.dispatch(new fromUser.actions.SelectUser(user));
     this.dialog.open(DeleteUserComponent, {
       width: '450px',
     });

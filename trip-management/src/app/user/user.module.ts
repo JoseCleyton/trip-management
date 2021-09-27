@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { HeaderModule } from './../header/header.module';
@@ -43,6 +44,7 @@ import { MatCardModule } from '@angular/material/card';
     PageHeaderModule,
     MatBottomSheetModule,
     MatIconModule,
+    MatSelectModule,
   ],
 })
 export class UserModule {}
