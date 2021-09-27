@@ -35,14 +35,14 @@ export class DialogViewComponent implements OnInit, OnDestroy {
   }
 
   private createSubscribes() {
-    if (this.typeOfData === 'christian') {
-      this.subscribeToSelectChristian();
+    if (this.typeOfData === 'customer-service') {
+      this.subscribeToSelectCustomerService();
     } else {
-      this.subscribeToSelectChurch();
+      this.subscribeToSelectUser();
     }
   }
 
-  public subscribeToSelectChurch() {
+  public subscribeToSelectUser() {
     this.subscription.add(
       this.store$
         .pipe(select(fromChurch.selectors.selectSelectedChurch))
@@ -51,8 +51,8 @@ export class DialogViewComponent implements OnInit, OnDestroy {
         })
     );
   }
-  
-  public subscribeToSelectChristian() {
+
+  public subscribeToSelectCustomerService() {
     this.subscription.add(
       this.store$
         .pipe(select(fromChristian.selectors.selectSelectedChristian))

@@ -3,7 +3,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LogoutComponent } from '../shared/components/ui/logout/logout.component';
-import { ChangePasswordComponent } from '../shared/components/ui/change-password/change-password.component';
 import { PROFILE } from '../shared/contants/profile-enum';
 @Component({
   selector: 'app-menu',
@@ -38,11 +37,11 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   public changePassword() {
-    this.dialog.open(ChangePasswordComponent, {
-      width: '600px',
-      data: {
-        type: 'admin',
-      },
-    });
+    // this.dialog.open(ChangePasswordComponent, {
+    //   width: '600px',
+    //   data: {
+    //     type: 'admin',
+    //   },
+    // });
   }
 }

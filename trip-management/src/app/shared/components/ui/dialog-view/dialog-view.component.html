@@ -3,7 +3,7 @@
   <div class="table-responsive">
     <table class="table table-hover">
       <thead class="thead">
-        <tr *ngIf="typeOfData === 'christian'">
+        <tr *ngIf="typeOfData === 'customer-service'">
           <th scope="col">N.</th>
           <th scope="col">Nome</th>
           <th scope="col">Nascimento</th>
@@ -14,7 +14,7 @@
           <th scope="col">Rua</th>
           <th scope="col">Número</th>
         </tr>
-        <tr *ngIf="typeOfData === 'church'">
+        <tr *ngIf="typeOfData === 'user'">
           <th scope="col">Nome</th>
           <th scope="col">Responsavel</th>
           <th scope="col">Dizimistas</th>
@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="typeOfData === 'christian'">
+        <tr *ngIf="typeOfData === 'customer-service'">
           <td>
             <p class="number-user">{{ selectedItem.id }}</p>
           </td>
@@ -58,7 +58,7 @@
           </td>
         </tr>
 
-        <tr *ngIf="typeOfData === 'church'">
+        <tr *ngIf="typeOfData === 'user'">
           <td>
             {{ selectedItem.name }}
           </td>

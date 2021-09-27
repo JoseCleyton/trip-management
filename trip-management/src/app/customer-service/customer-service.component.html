@@ -1,0 +1,34 @@
+<app-header></app-header>
+<div class="row pr-1">
+  <app-page-header [type]="type" (searchNameChristian)="searchByNameChristian($event)"
+    (searchNumberChristian)="searchByNumberChristian($event)" (searchMonth)="searchByMonthBirthday($event)"
+    (reset)="resetSearch()"></app-page-header>
+  <div *ngIf="selectedChristians.length > 0" class="col mt-3" style="max-height: 2.4rem">
+    <button mat-raised-button (click)="exportPdf()">
+      <mat-icon aria-hidden="false">file_download</mat-icon>
+    </button>
+    <span class="ml-1" *ngIf="selectedChristians.length > 0">
+      Selecionados:
+      <span class="fw-600">{{ selectedChristians.length }} </span>
+    </span>
+    <span class="ml-1" *ngIf="
+        selectAllCheckBox && selectedChristians.length < pageInfo.totalElements
+      ">Itens restantes:
+      <span class="fw-600">{{ pageInfo.totalElements - selectedChristians.length }}
+      </span></span>
+    <button *ngIf="
+        selectAllCheckBox && selectedChristians.length < pageInfo.totalElements
+      " class="ml-1" mat-raised-button (click)="selectAllRetrive()" style="color: blue">
+      Selecionar Todos
+    </button>
+  </div>
+  <div class="container">
+    <app-dumb-customer [customersService]="christians" [selectedCustomersService]="selectedChristians"
+      (selectCustomerServiceEvent)="selectCustomerService($event)" (editCustomerServiceEvent)="edit($event)"
+      (deleteCustomerServiceEvent)="delete($event)" (selectItenEvent)="select($event)"
+      (selectAllRetrieveEvent)="selectAllRetrive()">
+    </app-dumb-customer>
+    <app-paginator [pageSize]="pageable.size" [length]="pageInfo.totalElements" (pageEventEmitter)="loadPage($event)">
+    </app-paginator>
+  </div>
+</div>

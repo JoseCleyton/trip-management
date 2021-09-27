@@ -1,0 +1,12 @@
+<app-header></app-header>
+<div id="list" class="row mt-1">
+    <app-page-header [type]="type" (searchNameChurch)="searchByNameCostCenter($event)" (reset)="resetSearch()">
+    </app-page-header>
+    <div class="table-responsive">
+        <app-dumb-cost-center [costsCenter]="costsCenter" (selectCostCenterEvent)="selectCostCenter($event)"
+            (editCostCenterEvent)="edit($event)" (deleteCostCenterEvent)="delete($event)"></app-dumb-cost-center>
+        <app-paginator [pageSize]="pageable.size" [length]="pageInfo.totalElements"
+            (pageEventEmitter)="loadPage($event)">
+        </app-paginator>
+    </div>
+</div>
