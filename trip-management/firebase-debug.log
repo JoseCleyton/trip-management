@@ -1,0 +1,22 @@
+[debug] [2021-09-30T20:21:27.070Z] ----------------------------------------------------------------------
+[debug] [2021-09-30T20:21:27.072Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jose.de.araujo.souza\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2021-09-30T20:21:27.073Z] CLI Version:   9.19.0
+[debug] [2021-09-30T20:21:27.073Z] Platform:      win32
+[debug] [2021-09-30T20:21:27.073Z] Node Version:  v14.17.1
+[debug] [2021-09-30T20:21:27.077Z] Time:          Thu Sep 30 2021 17:21:27 GMT-0300 (Brasilia Standard Time)
+[debug] [2021-09-30T20:21:27.077Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-09-30T20:21:27.128Z] Field ".hosting" in "firebase.json" is possibly invalid: should be object
+[debug] [2021-09-30T20:21:27.128Z] Object ".hosting[0]" in "firebase.json" is missing required property: {"missingProperty":"target"}
+[debug] [2021-09-30T20:21:27.128Z] Object ".hosting[0]" in "firebase.json" is missing required property: {"missingProperty":"site"}
+[debug] [2021-09-30T20:21:27.128Z] Field ".hosting[0]" in "firebase.json" is possibly invalid: should match some schema in anyOf
+[debug] [2021-09-30T20:21:27.128Z] Field ".hosting" in "firebase.json" is possibly invalid: should match some schema in anyOf
+[debug] [2021-09-30T20:21:27.132Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-09-30T20:21:27.133Z] > authorizing via signed-in user (cleytoncomp@gmail.com)
+[debug] [2021-09-30T20:21:27.133Z] [iam] checking project trip-management-2fa82 for permissions ["firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]
+[debug] [2021-09-30T20:21:27.135Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-09-30T20:21:27.135Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-09-30T20:21:27.773Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Thu, 30 Sep 2021 20:21:27 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-09-30T20:21:27.791Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/trip-management-2fa82:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]}
