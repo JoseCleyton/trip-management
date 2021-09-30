@@ -1,3 +1,4 @@
+import { User } from 'src/app/shared/model/user.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,7 +18,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 })
 export class UserComponent implements OnInit, OnDestroy {
   public type = 'user';
-  public users: any[];
+  public users: User[];
   public pageable: Pageable;
   public pageInfo: PageInfo;
 

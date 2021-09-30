@@ -44,7 +44,17 @@ export function userReducer(
         filters: { ...action.filters },
         pageable: { ...action.pageable },
         pageInfo: { ...action.pageInfo },
-        users: action.payload,
+        users: action.payload.map((user) => {
+          user.profile.description =
+            user.profile.id === '1'
+              ? 'ADMINISTRADOR'
+              : user.profile.id === '2'
+              ? 'TECNICO'
+              : user.profile.id === '3'
+              ? 'SECRETARIO'
+              : '';
+          return user;
+        }),
       };
     }
     case UserActionsTypes.FIND_BY_ID_USER_SUCCESS: {

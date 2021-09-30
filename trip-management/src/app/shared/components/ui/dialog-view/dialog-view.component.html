@@ -16,15 +16,8 @@
         </tr>
         <tr *ngIf="typeOfData === 'user'">
           <th scope="col">Nome</th>
-          <th scope="col">Responsavel</th>
-          <th scope="col">Dizimistas</th>
-          <th scope="col">E-mail</th>
-          <th scope="col">Telefone</th>
           <th scope="col">Login</th>
-          <th scope="col">Cidade</th>
-          <th scope="col">Bairro</th>
-          <th scope="col">Rua</th>
-          <th scope="col">Número</th>
+          <th scope="col">Perfil</th>
         </tr>
       </thead>
       <tbody>
@@ -63,31 +56,10 @@
             {{ selectedItem.name }}
           </td>
           <td>
-            {{ selectedItem.responsible }}
+            {{ selectedItem.login }}
           </td>
           <td>
-            {{ selectedItem.numberOfTithers }}
-          </td>
-          <td>
-            {{ selectedItem.email }}
-          </td>
-          <td>
-            {{ selectedItem.phone | phoneCustom }}
-          </td>
-          <td>
-            {{ selectedItem.user.login }}
-          </td>
-          <td>
-            {{ selectedItem.city }}
-          </td>
-          <td>
-            {{ selectedItem.district }}
-          </td>
-          <td>
-            {{ selectedItem.street }}
-          </td>
-          <td>
-            {{ selectedItem.number }}
+            {{ selectedItem.profile.description }}
           </td>
         </tr>
       </tbody>

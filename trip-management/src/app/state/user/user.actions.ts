@@ -35,7 +35,7 @@ export class ListUsersSuccess implements Action {
     public filters: any,
     public pageable: Pageable,
     public pageInfo: PageInfo,
-    public payload: any
+    public payload: User[]
   ) {}
 }
 
@@ -61,11 +61,11 @@ export class SelectUser implements Action {
 }
 export class DeleteUser implements Action {
   readonly type = UserActionsTypes.DELETE_USER;
-  constructor(public id: number) {}
+  constructor(public id: string) {}
 }
 export class DeleteUserSucces implements Action {
   readonly type = UserActionsTypes.DELETE_USER_SUCCESS;
-  constructor(public id: number) {}
+  constructor(public id: string) {}
 }
 export class EditUser implements Action {
   readonly type = UserActionsTypes.EDIT_USER;

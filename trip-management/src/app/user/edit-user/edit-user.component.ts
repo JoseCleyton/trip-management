@@ -14,14 +14,15 @@ import * as fromUser from '../../state/user';
   styleUrls: ['./edit-user.component.scss'],
 })
 export class EditUserComponent implements OnInit, OnDestroy {
+  public showPassword = false;
   public formEditUser: FormGroup;
   public subscription: Subscription = new Subscription();
   public selectedUser: User;
 
   public profiles = [
     { name: 'ADMINISTRADOR', value: '1' },
-    { name: 'TECNICO', value: '02' },
-    { name: 'SECRETARIO', value: '03' },
+    { name: 'TECNICO', value: '2' },
+    { name: 'SECRETARIO', value: '3' },
   ];
 
   constructor(
@@ -61,29 +62,18 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   public updateForm() {
-    console.log(this.selectedUser);
     this.formEditUser.get('name').setValue(this.selectedUser.name);
-    this.formEditUser.get('profile').setValue(this.selectedUser.profile);
+    this.formEditUser.get('profile').setValue(this.selectedUser.profile.id);
     this.formEditUser.get('login').setValue(this.selectedUser.login);
     this.formEditUser.get('password').setValue(this.selectedUser.password);
   }
 
   public edit() {
     if (this.selectedUser) {
-      this.selectedUser.name = this.formEditUser.get('name').value;
-      this.selectedUser.profile = this.formEditUser.get('profile').value;
-      this.selectedUser.login = this.formEditUser.get('login').value;
-      this.selectedUser.password = this.formEditUser.get('password').value;
+      this.updateSelectedUser();
       this.store$.dispatch(new fromUser.actions.EditUser(this.selectedUser));
     } else {
-      const user: User = {
-        id: this.selectedUser.id,
-        name: this.formEditUser.get('name').value,
-        profile: this.formEditUser.get('profile').value,
-        login: this.formEditUser.get('login').value,
-        password: this.formEditUser.get('password').value,
-      };
-      this.store$.dispatch(new fromUser.actions.AddUser(user));
+      this.store$.dispatch(new fromUser.actions.AddUser(this.buildUser()));
     }
     this.formEditUser.reset();
     this.closeDialog();
@@ -91,5 +81,22 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   closeDialog(): void {
     this.dialogRef.close();
+  }
+
+  private updateSelectedUser() {
+    this.selectedUser.name = this.formEditUser.get('name').value;
+    this.selectedUser.profile.id = this.formEditUser.get('profile').value;
+    this.selectedUser.login = this.formEditUser.get('login').value;
+    this.selectedUser.password = this.formEditUser.get('password').value;
+  }
+
+  private buildUser(): User {
+    return {
+      id: this.formEditUser.get('login').value,
+      name: this.formEditUser.get('name').value,
+      profile: { id: this.formEditUser.get('profile').value },
+      login: this.formEditUser.get('login').value,
+      password: this.formEditUser.get('password').value,
+    };
   }
 }

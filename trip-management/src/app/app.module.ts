@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { FeatureModule } from './feature/feature.module';
 import { LoginModule } from './login/login.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,6 +19,8 @@ import { AlertComponent } from './shared/components/ui/alert/alert.component';
 import { MatIconModule } from '@angular/material/icon';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 registerLocaleData(localePt);
 
@@ -36,6 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     StateModule,
     Interceptor,
     MatIconModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

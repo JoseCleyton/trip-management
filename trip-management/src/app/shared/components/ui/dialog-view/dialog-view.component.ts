@@ -1,7 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import * as fromChristian from '../../../../state/christian';
-import * as fromChurch from '../../../../state/church';
+import * as fromUser from '../../../../state/user';
 import { Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/state';
@@ -45,7 +45,7 @@ export class DialogViewComponent implements OnInit, OnDestroy {
   public subscribeToSelectUser() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectSelectedChurch))
+        .pipe(select(fromUser.selectors.selectSelectedUser))
         .subscribe((state) => {
           this.selectedItem = state;
         })

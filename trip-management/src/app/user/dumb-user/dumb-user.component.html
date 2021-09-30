@@ -14,11 +14,11 @@
                 {{ item.name }}
             </td>
             <td>
-                <img alt="" class="img-40-40" src="../../assets/images/icons8-endereco-100.png" />{{ item.name }}
+                <img alt="" class="img-40-40" src="../../assets/images/icons8-endereco-100.png" />{{ item.login }}
             </td>
             <td>
                 <img alt="" class="img-30-30" src="../../assets/images/icons8-usuario-masculino-50.png" />{{
-                item.name }}
+                item.profile.description }}
             </td>
             <td (click)="preventDefault($event)">
                 <button class="btn" type="button" [matMenuTriggerFor]="menu">

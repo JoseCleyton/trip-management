@@ -1,14 +1,18 @@
+import { UserFirebaseService } from './shared/service/user/user-firebase';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'trip-management';
-  constructor(translate: TranslateService) {
+  constructor(
+    translate: TranslateService,
+    private userFirebaseService: UserFirebaseService
+  ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('pt-br');
 
