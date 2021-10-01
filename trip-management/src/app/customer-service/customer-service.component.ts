@@ -85,13 +85,11 @@ export class ChristiansComponent implements OnInit, OnDestroy {
   }
 
   public selectCustomerService(customerService: any) {
-    this.store$.dispatch(
-      new fromChristian.actions.SelectChristian(customerService)
-    );
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
         typeOfData: 'customer-service',
+        data: customerService,
       },
     });
   }
@@ -106,6 +104,7 @@ export class ChristiansComponent implements OnInit, OnDestroy {
       width: '700px',
     });
   }
+
   public delete(christian: Christian) {
     this.store$.dispatch(new fromChristian.actions.SelectChristian(christian));
     this.dialog.open(DeleteChristianComponent, {

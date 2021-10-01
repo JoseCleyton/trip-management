@@ -1,3 +1,4 @@
+import { DeleteComponent } from './../shared/components/ui/delete/delete.component';
 import { User } from 'src/app/shared/model/user.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,7 +10,6 @@ import { PageInfo } from '../shared/model/page-info.model';
 import { Pageable } from '../shared/model/pageable.model';
 import { AppState } from '../state';
 import * as fromUser from '../state/user';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 @Component({
   selector: 'app-user',
@@ -156,11 +156,11 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   public selectUser(user: any) {
-    this.store$.dispatch(new fromUser.actions.SelectUser(user));
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
         typeOfData: 'user',
+        data: user,
       },
     });
   }
@@ -171,10 +171,20 @@ export class UserComponent implements OnInit, OnDestroy {
       width: '900px',
     });
   }
-  public delete(user: any) {
-    this.store$.dispatch(new fromUser.actions.SelectUser(user));
-    this.dialog.open(DeleteUserComponent, {
-      width: '450px',
-    });
+
+  public delete(user: User) {
+    this.dialog
+      .open(DeleteComponent, {
+        width: '450px',
+        data: {
+          name: user.name,
+        },
+      })
+      .afterClosed()
+      .subscribe((confirm) => {
+        if (confirm) {
+          this.store$.dispatch(new fromUser.actions.DeleteUser(user.id));
+        }
+      });
   }
 }

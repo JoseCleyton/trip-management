@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { DumbUserComponent } from './dumb-user/dumb-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,14 +19,10 @@ import { MatInputModule } from '@angular/material/input';
 import { DialogViewModule } from '../shared/components/ui/dialog-view/dialog-view.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { MatCardModule } from '@angular/material/card';
+import { DeleteModule } from '../shared/components/ui/delete/delete.module';
 
 @NgModule({
-  declarations: [
-    UserComponent,
-    DumbUserComponent,
-    EditUserComponent,
-    DeleteUserComponent,
-  ],
+  declarations: [UserComponent, DumbUserComponent, EditUserComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -45,6 +40,7 @@ import { MatCardModule } from '@angular/material/card';
     MatBottomSheetModule,
     MatIconModule,
     MatSelectModule,
+    DeleteModule,
   ],
 })
 export class UserModule {}

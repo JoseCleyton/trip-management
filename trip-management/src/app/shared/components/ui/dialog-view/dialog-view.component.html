@@ -23,43 +23,43 @@
       <tbody>
         <tr *ngIf="typeOfData === 'customer-service'">
           <td>
-            <p class="number-user">{{ selectedItem.id }}</p>
+            <p class="number-user">{{ data.id }}</p>
           </td>
           <td>
-            {{ selectedItem.name }}
+            {{ data.name }}
           </td>
           <td>
-            {{ selectedItem.birthDate | date: "dd/MM/yyyy" }}
+            {{ data.birthDate | date: "dd/MM/yyyy" }}
           </td>
           <td>
-            {{ selectedItem.email }}
+            {{ data.email }}
           </td>
           <td>
-            {{ selectedItem.phone | phoneCustom }}
+            {{ data.phone | phoneCustom }}
           </td>
           <td>
-            {{ selectedItem.address.city }}
+            {{ data.address.city }}
           </td>
           <td>
-            {{ selectedItem.address.district }}
+            {{ data.address.district }}
           </td>
           <td>
-            {{ selectedItem.address.street }}
+            {{ data.address.street }}
           </td>
           <td>
-            {{ selectedItem.address.number }}
+            {{ data.address.number }}
           </td>
         </tr>
 
         <tr *ngIf="typeOfData === 'user'">
           <td>
-            {{ selectedItem.name }}
+            {{ data.name }}
           </td>
           <td>
-            {{ selectedItem.login }}
+            {{ data.login }}
           </td>
           <td>
-            {{ selectedItem.profile.description }}
+            {{ data.profile.description }}
           </td>
         </tr>
       </tbody>
