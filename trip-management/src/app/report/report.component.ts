@@ -193,8 +193,8 @@ export class ReportComponent implements OnInit, OnDestroy {
         .subscribe((state) => {
           this.churchs = [...state];
           if (this.churchs.length > 0) {
-            const church = this.churchs.find((church) => church.user.admin);
-            this.formChurch.get('church').setValue(church ? church.id : 1);
+            // const church = this.churchs.find((church) => church.user.admin);
+            // this.formChurch.get('church').setValue(church ? church.id : 1);
             this.dispatchTithings();
           }
         })

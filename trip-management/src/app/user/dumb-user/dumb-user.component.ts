@@ -1,3 +1,4 @@
+import { User } from 'src/app/shared/model/user.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./dumb-user.component.scss'],
 })
 export class DumbUserComponent implements OnInit {
-  @Input() public users: any[];
+  @Input() public users: User[];
 
   @Output() selectUserEvent: EventEmitter<any> = new EventEmitter();
   @Output() editUserEvent: EventEmitter<any> = new EventEmitter();

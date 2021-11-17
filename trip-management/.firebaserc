@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "trip-management-2fa82"
+  },
+  "targets": {
+    "trip-management-2fa82": {
+      "hosting": {
+        "trip-management": [
+          "trip-management-2fa82"
+        ]
+      }
+    }
+  }
+}

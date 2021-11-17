@@ -12,7 +12,7 @@ import { Observable, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as fromChurch from '../state/church';
-import * as fromChristian from '../state/christian';
+import * as fromUser from '../state/user';
 import { AppState } from '../state';
 import { select, Store } from '@ngrx/store';
 import { EditClientComponent } from '../client/edit-client/edit-client.component';
@@ -142,7 +142,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
 
   public openDialogNewUser() {
     this.dialog.open(EditUserComponent, {
-      width: '900px',
+      width: '600px',
     });
   }
 
@@ -263,7 +263,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
   public subscribeToChristianFilters() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChristian.selectors.selectFilters))
+        .pipe(select(fromUser.selectors.selectFilters))
         .subscribe((state) => {
           if (state) {
             this.filtersChristian = { ...state };

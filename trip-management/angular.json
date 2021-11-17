@@ -127,8 +127,13 @@
               "devServerTarget": "trip-management:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "trip-management"
 }

@@ -1,64 +1,24 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import * as fromChristian from '../../../../state/christian';
-import * as fromChurch from '../../../../state/church';
-import { Subscription } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-import { AppState } from 'src/app/state';
+import { Component, Inject, OnInit } from '@angular/core';
 @Component({
   selector: 'app-dialog-view',
   templateUrl: './dialog-view.component.html',
   styleUrls: ['./dialog-view.component.scss'],
 })
-export class DialogViewComponent implements OnInit, OnDestroy {
+export class DialogViewComponent implements OnInit {
   public typeOfData: string;
   public data: any;
-  public selectedItem: any;
-  public subscription: Subscription = new Subscription();
   constructor(
     public dialogRef: MatDialogRef<DialogViewComponent>,
-    @Inject(MAT_DIALOG_DATA) public inputData: any,
-    private store$: Store<AppState>
+    @Inject(MAT_DIALOG_DATA) public inputData: any
   ) {}
 
   ngOnInit(): void {
     this.typeOfData = this.inputData.typeOfData;
-    this.createSubscribes();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.data = this.inputData.data;
   }
 
   public closeDialog() {
     this.dialogRef.close();
-  }
-
-  private createSubscribes() {
-    if (this.typeOfData === 'customer-service') {
-      this.subscribeToSelectCustomerService();
-    } else {
-      this.subscribeToSelectUser();
-    }
-  }
-
-  public subscribeToSelectUser() {
-    this.subscription.add(
-      this.store$
-        .pipe(select(fromChurch.selectors.selectSelectedChurch))
-        .subscribe((state) => {
-          this.selectedItem = state;
-        })
-    );
-  }
-
-  public subscribeToSelectCustomerService() {
-    this.subscription.add(
-      this.store$
-        .pipe(select(fromChristian.selectors.selectSelectedChristian))
-        .subscribe((state) => {
-          this.selectedItem = state;
-        })
-    );
   }
 }

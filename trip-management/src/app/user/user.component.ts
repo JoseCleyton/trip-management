@@ -1,3 +1,5 @@
+import { DeleteComponent } from './../shared/components/ui/delete/delete.component';
+import { User } from 'src/app/shared/model/user.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,8 +9,7 @@ import { DialogViewComponent } from '../shared/components/ui/dialog-view/dialog-
 import { PageInfo } from '../shared/model/page-info.model';
 import { Pageable } from '../shared/model/pageable.model';
 import { AppState } from '../state';
-import * as fromChurch from '../state/church';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
+import * as fromUser from '../state/user';
 import { EditUserComponent } from './edit-user/edit-user.component';
 @Component({
   selector: 'app-user',
@@ -17,7 +18,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 })
 export class UserComponent implements OnInit, OnDestroy {
   public type = 'user';
-  public users: any[];
+  public users: User[];
   public pageable: Pageable;
   public pageInfo: PageInfo;
 
@@ -35,23 +36,23 @@ export class UserComponent implements OnInit, OnDestroy {
     this.subscribeToPageable();
     this.createForms();
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromUser.actions.ListUsers(
         {
           name: this.filters.name,
         },
         this.pageable
       )
     );
-    this.subscribeToChurchs();
+    this.subscribeToUsers();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  public searchByNameUser(nameUser: string) {
+  public searchByNameUser(nameUser: string): void {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromUser.actions.ListUsers(
         {
           name: nameUser,
         },
@@ -65,9 +66,9 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public resetSearch() {
+  public resetSearch(): void {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromUser.actions.ListUsers(
         {
           name: '',
         },
@@ -81,47 +82,47 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public subscribeToChurchs() {
+  public subscribeToUsers(): void {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectChurchs))
+        .pipe(select(fromUser.selectors.selectUsers))
         .subscribe((state) => {
           this.users = state;
         })
     );
   }
 
-  public subscribeToPageable() {
+  public subscribeToPageable(): void {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectPageable))
+        .pipe(select(fromUser.selectors.selectPageable))
         .subscribe((state) => {
           this.pageable = { ...state };
         })
     );
   }
 
-  public subscribeToPageInfo() {
+  public subscribeToPageInfo(): void {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectPageInfo))
+        .pipe(select(fromUser.selectors.selectPageInfo))
         .subscribe((state) => {
           this.pageInfo = { ...state };
         })
     );
   }
 
-  public subscribeToFilters() {
+  public subscribeToFilters(): void {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectFilters))
+        .pipe(select(fromUser.selectors.selectFilters))
         .subscribe((state) => {
           this.filters = { ...state };
         })
     );
   }
 
-  private createForms() {
+  private createForms(): void {
     this.formAddChurch = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       phone: new FormControl(null),
@@ -138,9 +139,9 @@ export class UserComponent implements OnInit, OnDestroy {
     });
   }
 
-  public loadPage(page: number) {
+  public loadPage(page: number): void {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromUser.actions.ListUsers(
         {
           name: this.filters.name,
         },
@@ -148,32 +149,42 @@ export class UserComponent implements OnInit, OnDestroy {
           direction: this.pageable.direction,
           size: this.pageable.size,
           sort: this.pageable.sort,
-          page: page,
+          page,
         }
       )
     );
   }
 
-  public selectUser(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
+  public selectUser(user: any): void {
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
         typeOfData: 'user',
+        data: user,
       },
     });
   }
 
-  public edit(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
+  public edit(user: any): void {
+    this.store$.dispatch(new fromUser.actions.SelectUser(user));
     this.dialog.open(EditUserComponent, {
-      width: '900px',
+      width: '600px',
     });
   }
-  public delete(user: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(user));
-    this.dialog.open(DeleteUserComponent, {
-      width: '450px',
-    });
+
+  public delete(user: User): void {
+    this.dialog
+      .open(DeleteComponent, {
+        width: '450px',
+        data: {
+          name: user.name,
+        },
+      })
+      .afterClosed()
+      .subscribe((confirm) => {
+        if (confirm) {
+          this.store$.dispatch(new fromUser.actions.DeleteUser(user.id));
+        }
+      });
   }
 }

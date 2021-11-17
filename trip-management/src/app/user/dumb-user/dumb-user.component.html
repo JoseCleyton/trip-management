@@ -2,9 +2,8 @@
     <thead class="thead">
         <tr>
             <th scope="col">Nome</th>
-            <th scope="col">Bairro/Sítio</th>
-            <th scope="col">Responsável</th>
-            <th scope="col">Dizimistas</th>
+            <th scope="col">Login</th>
+            <th scope="col">Perfil</th>
             <th scope="col">Ação</th>
         </tr>
     </thead>
@@ -15,15 +14,11 @@
                 {{ item.name }}
             </td>
             <td>
-                <img alt="" class="img-40-40" src="../../assets/images/icons8-endereco-100.png" />{{ item.district }}
+                <img alt="" class="img-40-40" src="../../assets/images/icons8-endereco-100.png" />{{ item.login }}
             </td>
             <td>
                 <img alt="" class="img-30-30" src="../../assets/images/icons8-usuario-masculino-50.png" />{{
-                item.responsible }}
-            </td>
-            <td>
-                <img alt="" class="img-35-35" src="../../assets/images/icons8-chamada-em-conferencia-50.png" />
-                {{ item.numberOfTithers }}
+                item.profile.description }}
             </td>
             <td (click)="preventDefault($event)">
                 <button class="btn" type="button" [matMenuTriggerFor]="menu">
