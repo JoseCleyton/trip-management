@@ -35,11 +35,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.subscribeToSelectUser();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  public subscribeToSelectUser() {
+  public subscribeToSelectUser(): void {
     this.subscription.add(
       this.store$
         .pipe(select(fromUser.selectors.selectSelectedUser))
@@ -52,7 +52,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public createForm() {
+  public createForm(): void {
     this.formEditUser = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       profile: new FormControl(null, [Validators.required]),
@@ -61,14 +61,14 @@ export class EditUserComponent implements OnInit, OnDestroy {
     });
   }
 
-  public updateForm() {
+  public updateForm(): void {
     this.formEditUser.get('name').setValue(this.selectedUser.name);
     this.formEditUser.get('profile').setValue(this.selectedUser.profile.id);
     this.formEditUser.get('login').setValue(this.selectedUser.login);
     this.formEditUser.get('password').setValue(this.selectedUser.password);
   }
 
-  public edit() {
+  public edit(): void {
     if (this.selectedUser) {
       this.updateSelectedUser();
       this.store$.dispatch(new fromUser.actions.EditUser(this.selectedUser));
@@ -81,9 +81,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   closeDialog(): void {
     this.dialogRef.close();
+    this.store$.dispatch(new fromUser.actions.SelectUser(null));
   }
 
-  private updateSelectedUser() {
+  private updateSelectedUser(): void {
     this.selectedUser.name = this.formEditUser.get('name').value;
     this.selectedUser.profile.id = this.formEditUser.get('profile').value;
     this.selectedUser.login = this.formEditUser.get('login').value;

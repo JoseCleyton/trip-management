@@ -142,7 +142,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
 
   public openDialogNewUser() {
     this.dialog.open(EditUserComponent, {
-      width: '900px',
+      width: '600px',
     });
   }
 

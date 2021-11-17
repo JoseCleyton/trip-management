@@ -46,11 +46,11 @@ export class UserComponent implements OnInit, OnDestroy {
     this.subscribeToUsers();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  public searchByNameUser(nameUser: string) {
+  public searchByNameUser(nameUser: string): void {
     this.store$.dispatch(
       new fromUser.actions.ListUsers(
         {
@@ -66,7 +66,7 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public resetSearch() {
+  public resetSearch(): void {
     this.store$.dispatch(
       new fromUser.actions.ListUsers(
         {
@@ -82,7 +82,7 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public subscribeToUsers() {
+  public subscribeToUsers(): void {
     this.subscription.add(
       this.store$
         .pipe(select(fromUser.selectors.selectUsers))
@@ -92,7 +92,7 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public subscribeToPageable() {
+  public subscribeToPageable(): void {
     this.subscription.add(
       this.store$
         .pipe(select(fromUser.selectors.selectPageable))
@@ -102,7 +102,7 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public subscribeToPageInfo() {
+  public subscribeToPageInfo(): void {
     this.subscription.add(
       this.store$
         .pipe(select(fromUser.selectors.selectPageInfo))
@@ -112,7 +112,7 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public subscribeToFilters() {
+  public subscribeToFilters(): void {
     this.subscription.add(
       this.store$
         .pipe(select(fromUser.selectors.selectFilters))
@@ -122,7 +122,7 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  private createForms() {
+  private createForms(): void {
     this.formAddChurch = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       phone: new FormControl(null),
@@ -139,7 +139,7 @@ export class UserComponent implements OnInit, OnDestroy {
     });
   }
 
-  public loadPage(page: number) {
+  public loadPage(page: number): void {
     this.store$.dispatch(
       new fromUser.actions.ListUsers(
         {
@@ -149,13 +149,13 @@ export class UserComponent implements OnInit, OnDestroy {
           direction: this.pageable.direction,
           size: this.pageable.size,
           sort: this.pageable.sort,
-          page: page,
+          page,
         }
       )
     );
   }
 
-  public selectUser(user: any) {
+  public selectUser(user: any): void {
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
@@ -165,14 +165,14 @@ export class UserComponent implements OnInit, OnDestroy {
     });
   }
 
-  public edit(user: any) {
+  public edit(user: any): void {
     this.store$.dispatch(new fromUser.actions.SelectUser(user));
     this.dialog.open(EditUserComponent, {
-      width: '900px',
+      width: '600px',
     });
   }
 
-  public delete(user: User) {
+  public delete(user: User): void {
     this.dialog
       .open(DeleteComponent, {
         width: '450px',
