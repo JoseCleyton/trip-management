@@ -4,7 +4,7 @@ import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Subscription } from 'rxjs';
 import { AppState } from '../state';
-import * as fromChurch from '../state/church';
+import * as fromCustomerService from '../state/customer-service';
 import * as fromChristian from '../state/christian';
 import * as fromTithing from '../state/tithing';
 import { Tithing } from '../shared/model/tithing.model';
@@ -30,7 +30,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public lineChartLegendPolarArea;
   public lineChartTypePolarArea;
 
-  public quantityChurch: number;
+  public quantityCustomerServicesOpen: number;
+  public quantityCustomerServicesClose: number;
   public quantityChristian: number;
 
   public subscription: Subscription = new Subscription();
@@ -42,7 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.dispatchsIsAdmin();
     this.dispatchIsUser();
-    this.subscribeToQuantityChurch();
+    this.subscribeToQuantityCustomersService();
     this.subscribeToQuantityChristians();
     this.subscribeToListTithings();
   }
@@ -51,12 +52,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public subscribeToQuantityChurch() {
+  public subscribeToQuantityCustomersService() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectQuantity))
+        .pipe(select(fromCustomerService.selectors.selectCustomersServices))
         .subscribe((state) => {
-          this.quantityChurch = state;
+          this.quantityCustomerServicesOpen = state.filter(
+            (customer) => !customer.dateEnd
+          ).length;
+          this.quantityCustomerServicesClose = state.filter(
+            (customer) => customer.dateEnd
+          ).length;
         })
     );
   }
@@ -87,7 +93,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private dispatchsIsAdmin() {
     if (this.isAdmin) {
-      this.store$.dispatch(new fromChurch.actions.GetQuantity());
+      this.store$.dispatch(
+        new fromCustomerService.actions.ListCustomerServices(null, null)
+      );
     }
   }
 
