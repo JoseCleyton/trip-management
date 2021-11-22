@@ -276,7 +276,6 @@ export class CustomerServiceComponent implements OnInit, OnDestroy {
   public selectAllRetrive(): void {
     this.customerService
       .findAll()
-      .valueChanges()
       .subscribe((data) => {
         this.selectedCustomersService = [...data];
       });

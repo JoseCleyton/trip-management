@@ -155,8 +155,15 @@ export class EditCustomerServiceComponent implements OnInit, OnDestroy {
   }
 
   private updateSelectedCustomerService(): void {
-    this.selectedCustomerService.client.id =
-      this.formEditCustomerService.get('clientId').value;
+    this.selectedCustomerService.client = this.clients.find(
+      (client) =>
+        client.id === this.formEditCustomerService.get('clientId').value
+    );
+    this.selectedCustomerService.technician = this.technicians.find(
+      (technician) =>
+        technician.id === this.formEditCustomerService.get('technicianId').value
+    );
+    
     this.selectedCustomerService.address.cep =
       this.formEditCustomerService.get('cep').value;
     this.selectedCustomerService.address.city =

@@ -2,6 +2,7 @@ import { Church } from './church.model';
 import { Profile } from './profile.model';
 
 export class User {
+  public key?: string;
   public id?: string;
   public name: string;
   public login: string;

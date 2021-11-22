@@ -23,7 +23,6 @@ export class UserEffects {
       // action.filters, action.pageable
       this.userService
         .findAll()
-        .valueChanges()
         .pipe(
           map(
             (response) => {
@@ -129,7 +128,7 @@ export class UserEffects {
           this.store$.dispatch(
             new fromAlert.actions.AddAlert({
               type: 'success',
-              message: 'Dizimista deletado com sucesso',
+              message: 'Usuário deletado com sucesso',
             })
           );
           return new actions.DeleteUserSucces(action.id);
@@ -154,7 +153,7 @@ export class UserEffects {
           this.store$.dispatch(
             new fromAlert.actions.AddAlert({
               type: 'success',
-              message: 'Dizimista editado com sucesso',
+              message: 'Usuário editado com sucesso',
             })
           );
           return new actions.EditUserSucces(action.user);

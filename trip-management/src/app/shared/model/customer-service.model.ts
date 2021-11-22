@@ -3,6 +3,7 @@ import { Client } from './client.model';
 import { Address } from './address.model';
 
 export class CustomerService {
+  public key?: string;
   public id?: string;
   public client: Client;
   public address: Address;

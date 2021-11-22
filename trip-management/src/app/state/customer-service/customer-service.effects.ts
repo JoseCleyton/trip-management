@@ -22,31 +22,28 @@ export class CustomerServiceEffects {
       actions.CustomerServiceActionsTypes.LIST_CUSTOMERS_SERVICE
     ),
     switchMap((action) =>
-      this.customerServiceService
-        .findAll()
-        .valueChanges()
-        .pipe(
-          map(
-            (response) => {
-              return new actions.ListCustomerServicesSuccess(
-                { ...action.filters },
-                { ...action.pageable },
-                {
-                  totalElements: response.length,
-                  totalPages: response.length / 5,
-                },
-                response
-              );
-            },
-            catchError((error) => {
-              new fromAlert.actions.AddAlert({
-                type: 'error',
-                message: error.message,
-              });
-              return EMPTY;
-            })
-          )
+      this.customerServiceService.findAll().pipe(
+        map(
+          (response) => {
+            return new actions.ListCustomerServicesSuccess(
+              { ...action.filters },
+              { ...action.pageable },
+              {
+                totalElements: response.length,
+                totalPages: response.length / 5,
+              },
+              response
+            );
+          },
+          catchError((error) => {
+            new fromAlert.actions.AddAlert({
+              type: 'error',
+              message: error.message,
+            });
+            return EMPTY;
+          })
         )
+      )
     )
   );
 
@@ -159,26 +156,24 @@ export class CustomerServiceEffects {
       actions.CustomerServiceActionsTypes.EDIT_CUSTOMER_SERVICE
     ),
     switchMap((action) =>
-      this.customerServiceService
-        .edit(action.customerService)
-        .then(
-          (response) => {
-            this.store$.dispatch(
-              new fromAlert.actions.AddAlert({
-                type: 'success',
-                message: 'Chamado editado com sucesso',
-              })
-            );
-            return new actions.EditCustomerServiceSucces(action.customerService);
-          },
-          catchError((error) => {
+      this.customerServiceService.edit(action.customerService).then(
+        (response) => {
+          this.store$.dispatch(
             new fromAlert.actions.AddAlert({
-              type: 'error',
-              message: error.message,
-            });
-            return EMPTY;
-          })
-        )
+              type: 'success',
+              message: 'Chamado editado com sucesso',
+            })
+          );
+          return new actions.EditCustomerServiceSucces(action.customerService);
+        },
+        catchError((error) => {
+          new fromAlert.actions.AddAlert({
+            type: 'error',
+            message: error.message,
+          });
+          return EMPTY;
+        })
+      )
     )
   );
 }

@@ -36,7 +36,7 @@ export class DumbCustomerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public selectCustomerService(customerService: any) {
+  public selectCustomerService(customerService: CustomerService) {
     this.selectCustomerServiceEvent.emit(customerService);
   }
 
@@ -44,12 +44,16 @@ export class DumbCustomerComponent implements OnInit {
     event.stopPropagation();
   }
 
-  public edit(customerService: any) {
+  public edit(customerService: CustomerService) {
     this.editCustomerServiceEvent.emit(customerService);
   }
 
-  public delete(customerService: any) {
+  public delete(customerService: CustomerService) {
     this.deleteCustomerServiceEvent.emit(customerService);
+  }
+
+  public done(customerService: CustomerService):void{
+
   }
 
   public selectAll(completed: boolean) {

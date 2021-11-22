@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { User } from './../../model/user.model';
 import { Service } from './../service';
 import { Injectable } from '@angular/core';
@@ -19,7 +20,19 @@ export class UserFirebaseService implements Service {
   }
 
   public findAll() {
-    return this.usersRef;
+    return this.usersRef.snapshotChanges().pipe(
+      map((response) => {
+        return response.map((a) => {
+          const data = a.payload.val();
+          const key = a.payload.key;
+          const user: User = {
+            key,
+            ...data,
+          };
+          return user;
+        });
+      })
+    );
   }
 
   public findById(id: string) {
@@ -27,7 +40,12 @@ export class UserFirebaseService implements Service {
   }
 
   public edit(data: User) {
-    return this.usersRef.update(data.id, data);
+    return this.usersRef.update(data.key, {
+      name: data.name,
+      login: data.login,
+      password: data.password,
+      profile: data.profile,
+    });
   }
 
   public delete(id: string) {

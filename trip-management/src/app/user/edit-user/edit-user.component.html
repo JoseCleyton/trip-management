@@ -19,7 +19,7 @@
                     <mat-label>Perfil *</mat-label>
                     <mat-select formControlName="profile">
                         <mat-option>---</mat-option>
-                        <mat-option *ngFor="let profile of profiles" [value]="profile.value">{{ profile.name }}
+                        <mat-option *ngFor="let profile of profiles" [value]="profile.id">{{ profile.description }}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="

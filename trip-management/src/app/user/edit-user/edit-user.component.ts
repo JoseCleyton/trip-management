@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { EditCustomerServiceComponent } from 'src/app/customer-service/edit-customer-service/edit-customer-service.component';
+import { Profile } from 'src/app/shared/model/profile.model';
 import { User } from 'src/app/shared/model/user.model';
 import { AppState } from 'src/app/state';
 import * as fromUser from '../../state/user';
@@ -19,10 +20,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
   public subscription: Subscription = new Subscription();
   public selectedUser: User;
 
-  public profiles = [
-    { name: 'ADMINISTRADOR', value: '1' },
-    { name: 'TECNICO', value: '2' },
-    { name: 'SECRETARIO', value: '3' },
+  public profiles: Profile[] = [
+    { description: 'ADMINISTRADOR', id: '1' },
+    { description: 'TECNICO', id: '2' },
+    { description: 'SECRETARIO', id: '3' },
   ];
 
   constructor(
@@ -86,16 +87,21 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   private updateSelectedUser(): void {
     this.selectedUser.name = this.formEditUser.get('name').value;
-    this.selectedUser.profile.id = this.formEditUser.get('profile').value;
+    this.selectedUser.profile = this.profiles.find(
+      (profile) => profile.id === this.formEditUser.get('profile').value
+    );
     this.selectedUser.login = this.formEditUser.get('login').value;
     this.selectedUser.password = this.formEditUser.get('password').value;
   }
 
   private buildUser(): User {
+    const profile = this.profiles.find(
+      (pr) => pr.id === this.formEditUser.get('profile').value
+    );
     return {
       id: this.formEditUser.get('login').value,
       name: this.formEditUser.get('name').value,
-      profile: { id: this.formEditUser.get('profile').value },
+      profile,
       login: this.formEditUser.get('login').value,
       password: this.formEditUser.get('password').value,
     };
