@@ -192,7 +192,7 @@ export class EditCustomerServiceComponent implements OnInit, OnDestroy {
       client,
       address,
       dateStart: this.getDateNow(),
-      dateEnd: this.getDateNow(),
+      dateEnd: null,
       technician,
     };
     return customerService;
