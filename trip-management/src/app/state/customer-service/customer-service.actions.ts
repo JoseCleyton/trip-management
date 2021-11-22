@@ -61,11 +61,11 @@ export class SelectCustomerService implements Action {
 }
 export class DeleteCustomerService implements Action {
   readonly type = CustomerServiceActionsTypes.DELETE_CUSTOMER_SERVICE;
-  constructor(public id: number) {}
+  constructor(public id: string) {}
 }
 export class DeleteCustomerServiceSucces implements Action {
   readonly type = CustomerServiceActionsTypes.DELETE_CUSTOMER_SERVICE_SUCCESS;
-  constructor(public id: number) {}
+  constructor(public id: string) {}
 }
 export class EditCustomerService implements Action {
   readonly type = CustomerServiceActionsTypes.EDIT_CUSTOMER_SERVICE;

@@ -1,110 +1,100 @@
 <div class="container">
   <h1>Novo Chamado</h1>
-  <form [formGroup]="formEditChristian">
+  <form [formGroup]="formEditCustomerService">
+
     <div class="row">
-      <div class="col-12 d-flex align-items-center">
-        <h4>Dados Pessoais</h4>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-6 col-md-6 col-sm-12">
-        <mat-form-field style="width: 15rem">
-          <mat-label>Nome *</mat-label>
-          <input matInput formControlName="name" />
-          <mat-error
-            *ngIf="
-              formEditChristian.get('name').touched &&
-              formEditChristian.get('name').hasError('required')
-            "
-          >
-            Nome é <strong>obrigatório</strong>
+      <div class="col-xl-5 col-md-6 col-sm-12">
+        <mat-form-field>
+          <mat-label>Cliente *</mat-label>
+          <mat-select formControlName="clientId">
+            <mat-option>---</mat-option>
+            <mat-option *ngFor="let client of clients" [value]="client.id">{{ client.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="
+          formEditCustomerService.get('clientId').touched &&
+          formEditCustomerService.get('clientId').hasError('required')
+        ">
+            Cliente é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-xl-6 col-md-6 col-sm-12">
-        <mat-form-field style="width: 14rem">
-          <mat-label>Data de Nascimento *</mat-label>
-          <input matInput formControlName="birthDate" mask="00/00/0000" />
-          <mat-error
-            *ngIf="
-              formEditChristian.get('birthDate').touched &&
-              formEditChristian.get('birthDate').hasError('required')
-            "
-          >
-            Data de Nascimento é <strong>obrigatório</strong>
+      <div class="col-xl-5 col-md-6 col-sm-12">
+        <mat-form-field>
+          <mat-label>Técnico *</mat-label>
+          <mat-select formControlName="technicianId">
+            <mat-option>---</mat-option>
+            <mat-option *ngFor="let technician of technicians" [value]="technician.id">{{ technician.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="
+          formEditCustomerService.get('technicianId').touched &&
+          formEditCustomerService.get('technicianId').hasError('required')
+        ">
+            Técnico é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
       </div>
     </div>
     <div class="row">
-      <div class="col-xl-6 col-md-6 col-sm-12">
-        <mat-form-field style="width: 14rem">
-          <mat-label>Telefone</mat-label>
-          <input matInput formControlName="phone" mask="(00)0.0000-0000" />
+      <div class="col-xl-2 col-md-6 col-sm-12">
+        <mat-form-field style="width: 5rem;">
+          <mat-label>CEP *</mat-label>
+          <input matInput formControlName="cep" />
+          <mat-error *ngIf="
+              formEditCustomerService.get('cep').touched &&
+              formEditCustomerService.get('cep').hasError('required')
+            ">
+            CEP é <strong>obrigatório</strong>
+          </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-xl-6 col-md-6 col-sm-12">
-        <mat-form-field style="width: 14rem">
-          <mat-label>E-mail</mat-label>
-          <input matInput formControlName="email" />
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-6 col-md-6 col-sm-12">
-        <mat-form-field style="width: 14rem">
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <mat-form-field style="width: 10rem;">
           <mat-label>Cidade *</mat-label>
           <input matInput formControlName="city" />
-          <mat-error
-            *ngIf="
-              formEditChristian.get('city').touched &&
-              formEditChristian.get('city').hasError('required')
-            "
-          >
+          <mat-error *ngIf="
+              formEditCustomerService.get('city').touched &&
+              formEditCustomerService.get('city').hasError('required')
+            ">
             Cidade é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-xl-6 col-md-6 col-sm-12">
-        <mat-form-field style="width: 14rem">
+      <div class="col-xl-3 col-md-6 col-sm-12">
+        <mat-form-field style="width: 8rem;">
           <mat-label>Bairro *</mat-label>
           <input matInput formControlName="district" />
-          <mat-error
-            *ngIf="
-              formEditChristian.get('district').touched &&
-              formEditChristian.get('district').hasError('required')
-            "
-          >
+          <mat-error *ngIf="
+              formEditCustomerService.get('district').touched &&
+              formEditCustomerService.get('district').hasError('required')
+            ">
             Bairro é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
       </div>
     </div>
     <div class="row">
-      <div class="col-xl-6 col-md-6 col-sm-12">
-        <mat-form-field style="width: 14rem">
+      <div class="col-xl-7 col-md-6 col-sm-12">
+        <mat-form-field style="width: 16rem;">
           <mat-label>Rua *</mat-label>
           <input matInput formControlName="street" />
-          <mat-error
-            *ngIf="
-              formEditChristian.get('street').touched &&
-              formEditChristian.get('street').hasError('required')
-            "
-          >
+          <mat-error *ngIf="
+              formEditCustomerService.get('street').touched &&
+              formEditCustomerService.get('street').hasError('required')
+            ">
             Rua é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-xl-6 col-md-6 col-sm-12">
-        <mat-form-field style="width: 14rem">
+      <div class="col-xl-2 col-md-6 col-sm-12">
+        <mat-form-field style="width: 5rem">
           <mat-label>Número *</mat-label>
           <input type="number" matInput formControlName="number" />
-          <mat-error
-            *ngIf="
-              formEditChristian.get('number').touched &&
-              formEditChristian.get('number').hasError('required')
-            "
-          >
+          <mat-error *ngIf="
+              formEditCustomerService.get('number').touched &&
+              formEditCustomerService.get('number').hasError('required')
+            ">
             Número é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
@@ -116,13 +106,8 @@
       <button mat-raised-button (click)="closeDialog()">Cancelar</button>
     </div>
     <div class="col d-flex justify-content-end">
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="formEditChristian.invalid"
-        (click)="edit()"
-      >
-        Editar
+      <button mat-raised-button color="primary" [disabled]="formEditCustomerService.invalid" (click)="edit()">
+        {{selectedCustomerService? 'Editar' : 'Salvar'}}
       </button>
     </div>
   </div>

@@ -26,23 +26,24 @@
         </td>
         <td>
           <img alt="Icon User" class="img-30-30" src="../../assets/images/icons8-usuario-masculino-50.png" />{{
-          item.name }}
+          item?.client?.name }}
         </td>
         <td>
           <img alt="Icon User" class="img-30-30" src="../../assets/images/icons8-usuario-masculino-50.png" />{{
-          item.name }}
+          item?.technician?.name }}
         </td>
         <td>
-          <img alt="Icon date" class="img-30-30" src="../../assets/images/icons8-data-ate-64.png" />{{ item.birthDate
-          | date: "dd/MM/yyyy" }}
+          <img alt="Icon date" class="img-30-30" src="../../assets/images/icons8-data-ate-64.png" />{{ item.dateStart
+          }}
         </td>
         <td>
-          <img alt="Icon date" class="img-30-30" src="../../assets/images/icons8-data-ate-64.png" />{{ item.birthDate
-          | date: "dd/MM/yyyy" }}
+          <img alt="Icon date" class="img-30-30" src="../../assets/images/icons8-data-ate-64.png" />{{ item.dateEnd
+          ? item.dateEnd:''
+          }}
         </td>
         <td>
-          <img class="img-30-30" src="../../assets/images/icons8-telefone-sem-uso-100.png" />
-          {{ item.phone | phoneCustom }}
+          <mat-progress-bar  mode="determinate" [color]="item.dateEnd ? 'primary' : 'warn'"
+            [value]=" item.dateEnd ? '100' : '50'"></mat-progress-bar>
         </td>
         <td (click)="preventDefault($event)">
           <button class="btn" type="button" [matMenuTriggerFor]="menu">
