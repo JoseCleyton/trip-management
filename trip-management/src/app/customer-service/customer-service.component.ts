@@ -1,3 +1,4 @@
+import { CustomerServiceFirebaseService } from './../shared/service/customer-service/customer-service-firebase';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {
@@ -10,36 +11,33 @@ import {
 import { DialogViewComponent } from '../shared/components/ui/dialog-view/dialog-view.component';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../state';
-import * as fromChristian from '../state/christian';
+import * as fromCustomerService from '../state/customer-service';
 import { Subscription } from 'rxjs';
-import { Christian } from '../shared/model/christian.model';
-import { DeleteChristianComponent } from './delete-christian/delete-christian.component';
 import { Pageable } from '../shared/model/pageable.model';
 import { PageInfo } from '../shared/model/page-info.model';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { ChristianService } from '../shared/service/christian/christian.service';
 import { EditCustomerServiceComponent } from './edit-customer-service/edit-customer-service.component';
+import { DeleteComponent } from '../shared/components/ui/delete/delete.component';
 @Component({
   selector: 'app-customer-service',
   templateUrl: './customer-service.component.html',
   styleUrls: ['./customer-service.component.scss'],
 })
-export class ChristiansComponent implements OnInit, OnDestroy {
-  public christians: Christian[] = [];
+export class CustomerServiceComponent implements OnInit, OnDestroy {
+  public customersService: any[] = [];
+  public selectedCustomersService = [];
   public type = 'customer-service';
 
   public buttonsView = [
     { function: 'Fechar', type: 'basic', justify: 'center' },
   ];
 
-  public formAddCristian: FormGroup;
   public formFilter: FormGroup;
   public subscription: Subscription = new Subscription();
   public pageable: Pageable;
   public pageInfo: PageInfo;
   public filters: any;
-  public selectedChristians: Christian[] = [];
 
   public selectAllCheckBox = false;
 
@@ -49,29 +47,21 @@ export class ChristiansComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private store$: Store<AppState>,
-    private christianService: ChristianService
+    private customerService: CustomerServiceFirebaseService
   ) {}
 
   ngOnInit(): void {
     this.subscribeToFilters();
     this.subscribeToPageInfo();
     this.subscribeToPageable();
-    this.subscribeToChristians();
+    this.subscribeToCustomerServices();
 
     this.store$.dispatch(
-      new fromChristian.actions.ListChristians(this.filters, this.pageable)
+      new fromCustomerService.actions.ListCustomerServices(
+        this.filters,
+        this.pageable
+      )
     );
-
-    this.formAddCristian = new FormGroup({
-      name: new FormControl(null, [Validators.required]),
-      phone: new FormControl(null),
-      email: new FormControl(null),
-      birthDate: new FormControl(null, [Validators.required]),
-      city: new FormControl(null, [Validators.required]),
-      street: new FormControl(null, [Validators.required]),
-      number: new FormControl(null, [Validators.required]),
-      district: new FormControl(null, [Validators.required]),
-    });
 
     this.formFilter = new FormGroup({
       nameFilter: new FormControl(null),
@@ -80,11 +70,11 @@ export class ChristiansComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  public selectCustomerService(customerService: any) {
+  public selectCustomerService(customerService: any): void {
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
@@ -94,80 +84,87 @@ export class ChristiansComponent implements OnInit, OnDestroy {
     });
   }
 
-  public preventDefault(event: Event) {
+  public preventDefault(event: Event): void {
     event.stopPropagation();
   }
 
-  public edit(christian: Christian) {
-    this.store$.dispatch(new fromChristian.actions.SelectChristian(christian));
+  public edit(christian: any): void {
+    this.store$.dispatch(
+      new fromCustomerService.actions.SelectCustomerService(christian)
+    );
     this.dialog.open(EditCustomerServiceComponent, {
       width: '700px',
     });
   }
 
-  public delete(christian: Christian) {
-    this.store$.dispatch(new fromChristian.actions.SelectChristian(christian));
-    this.dialog.open(DeleteChristianComponent, {
+  public delete(customerService: any): void {
+    this.store$.dispatch(
+      new fromCustomerService.actions.SelectCustomerService(customerService)
+    );
+    this.dialog.open(DeleteComponent, {
       width: '400px',
+      data: {
+        name: customerService.name,
+      },
     });
   }
 
-  public subscribeToChristians() {
+  public subscribeToCustomerServices(): void {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChristian.selectors.selectChristians))
+        .pipe(select(fromCustomerService.selectors.selectCustomersServices))
         .subscribe((state) => {
-          this.christians = state;
+          this.customersService = state;
         })
     );
   }
 
-  public subscribeToPageable() {
+  public subscribeToPageable(): void {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChristian.selectors.selectPageable))
+        .pipe(select(fromCustomerService.selectors.selectPageable))
         .subscribe((state) => {
           this.pageable = { ...state };
         })
     );
   }
 
-  public subscribeToPageInfo() {
+  public subscribeToPageInfo(): void {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChristian.selectors.selectPageInfo))
+        .pipe(select(fromCustomerService.selectors.selectPageInfo))
         .subscribe((state) => {
           this.pageInfo = { ...state };
         })
     );
   }
 
-  public subscribeToFilters() {
+  public subscribeToFilters(): void {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChristian.selectors.selectFilters))
+        .pipe(select(fromCustomerService.selectors.selectFilters))
         .subscribe((state) => {
           this.filters = { ...state };
         })
     );
   }
 
-  public loadPage(page: number) {
+  public loadPage(page: number): void {
     this.store$.dispatch(
-      new fromChristian.actions.ListChristians(this.filters, {
+      new fromCustomerService.actions.ListCustomerServices(this.filters, {
         direction: this.pageable.direction,
         size: this.pageable.size,
         sort: this.pageable.sort,
-        page: page,
+        page,
       })
     );
   }
 
-  public searchByNameChristian(nameChristian: string) {
+  public searchByNameany(nameany: string): void {
     this.store$.dispatch(
-      new fromChristian.actions.ListChristians(
+      new fromCustomerService.actions.ListCustomerServices(
         {
-          name: nameChristian,
+          name: nameany,
           monthOfBirthday: this.filters.monthOfBirthday,
         },
         {
@@ -180,13 +177,17 @@ export class ChristiansComponent implements OnInit, OnDestroy {
     );
   }
 
-  public searchByNumberChristian(number: string) {
-    this.store$.dispatch(new fromChristian.actions.FindByIdChristians(number));
+  public searchByNumberCustomerService(numberCustomerService: string): void {
+    this.store$.dispatch(
+      new fromCustomerService.actions.FindByIdCustomerServices(
+        numberCustomerService
+      )
+    );
   }
 
-  public searchByMonthBirthday(month) {
+  public searchByMonthBirthday(month: string): void {
     this.store$.dispatch(
-      new fromChristian.actions.ListChristians(
+      new fromCustomerService.actions.ListCustomerServices(
         {
           name: this.filters.name,
           monthOfBirthday: month,
@@ -201,9 +202,9 @@ export class ChristiansComponent implements OnInit, OnDestroy {
     );
   }
 
-  public resetSearch() {
+  public resetSearch(): void {
     this.store$.dispatch(
-      new fromChristian.actions.ListChristians(
+      new fromCustomerService.actions.ListCustomerServices(
         {
           name: '',
           monthOfBirthday: this.filters.monthOfBirthday,
@@ -218,53 +219,53 @@ export class ChristiansComponent implements OnInit, OnDestroy {
     );
   }
 
-  public selectAll(completed: boolean) {
+  public selectAll(completed: boolean): void {
     if (completed) {
       this.selectAllCheckBox = true;
       this.checkBox._results.forEach((element) => {
         element._checked = true;
       });
-      this.selectedChristians = [...this.christians];
+      this.selectedCustomersService = [...this.customersService];
     } else {
       this.selectAllCheckBox = false;
-      this.selectedChristians = [];
+      this.selectedCustomersService = [];
       this.checkBox._results.forEach((element) => {
         element._checked = false;
       });
     }
   }
 
-  public select(christian: Christian) {
-    const c = this.selectedChristians.find(
+  public select(christian: any): void {
+    const c = this.selectedCustomersService.find(
       (element) => element.id === christian.id
     );
     if (c) {
       this.selectAllCheckBox = false;
       this.checkBoxAll._checked = false;
-      this.selectedChristians = this.selectedChristians.filter(
+      this.selectedCustomersService = this.selectedCustomersService.filter(
         (element) => element.id !== christian.id
       );
     } else {
-      this.selectedChristians.push(christian);
+      this.selectedCustomersService.push(christian);
       this.selectAllCheckBox =
-        this.selectedChristians.length === this.christians.length;
+        this.selectedCustomersService.length === this.customersService.length;
       this.checkBoxAll._checked =
-        this.selectedChristians.length === this.christians.length;
+        this.selectedCustomersService.length === this.customersService.length;
     }
   }
 
-  public isInserted(id: number): boolean {
-    return this.selectedChristians.some((element) => element.id === id);
-  }
+  // public isInserted(id: number): boolean {
+  //   return this.selectedChristians.some((element) => element.id === id);
+  // }
 
-  public exportPdf() {
-    let doc = new jsPDF();
-    let col = ['Nome', 'Bairro'];
-    let rows = [];
-    for (var key in this.selectedChristians) {
+  public exportPdf(): void {
+    const doc = new jsPDF();
+    const col = ['Nome', 'Bairro'];
+    const rows = [];
+    for (var key in this.selectedCustomersService) {
       let temp = [
-        this.selectedChristians[key].name,
-        this.selectedChristians[key].address.district,
+        this.selectedCustomersService[key].name,
+        this.selectedCustomersService[key].address.district,
       ];
       rows.push(temp);
     }
@@ -272,9 +273,15 @@ export class ChristiansComponent implements OnInit, OnDestroy {
     doc.save('dizimistas.pdf');
   }
 
-  public selectAllRetrive() {
-    this.christianService.retrieveChristians().subscribe((data) => {
-      this.selectedChristians = [...data];
-    });
+  public selectAllRetrive(): void {
+    this.customerService
+      .findAll()
+      .valueChanges()
+      .subscribe((data) => {
+        this.selectedCustomersService = [...data];
+      });
   }
+
+  searchByNumberChristian(event): void {}
+  searchByNameChristian(event): void {}
 }

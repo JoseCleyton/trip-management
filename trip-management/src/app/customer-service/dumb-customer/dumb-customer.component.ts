@@ -1,3 +1,4 @@
+import { CustomerService } from './../../shared/model/customer-service.model';
 import {
   Component,
   EventEmitter,
@@ -13,8 +14,8 @@ import {
   styleUrls: ['./dumb-customer.component.scss'],
 })
 export class DumbCustomerComponent implements OnInit {
-  @Input() public customersService: any[];
-  @Input() public selectedCustomersService: any[] = [];
+  @Input() public customersService: CustomerService[];
+  @Input() public selectedCustomersService: CustomerService[] = [];
 
   @Output() public selectCustomerServiceEvent: EventEmitter<any> =
     new EventEmitter();
@@ -71,10 +72,10 @@ export class DumbCustomerComponent implements OnInit {
     this.selectItenEvent.emit(customerService);
   }
 
-  public isInserted(id: number): boolean {
+  public isInserted(id: string): boolean {
     return this.selectedCustomersService.some((element) => element.id === id);
   }
-  
+
   public selectAllRetrive() {
     this.selectAllRetrieveEvent.emit();
   }

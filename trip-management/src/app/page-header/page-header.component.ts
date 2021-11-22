@@ -136,7 +136,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
 
   public openDialogNewCustomerService() {
     this.dialog.open(EditCustomerServiceComponent, {
-      width: '900px',
+      width: '600px',
     });
   }
 
