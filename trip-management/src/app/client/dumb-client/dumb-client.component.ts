@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Client } from 'src/app/shared/model/client.model';
 
 @Component({
   selector: 'app-dumb-client',
@@ -6,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./dumb-client.component.scss'],
 })
 export class DumbClientComponent implements OnInit {
-  @Input() public clients: any[];
+  @Input() public clients: Client[];
 
   @Output() selectClientEvent: EventEmitter<any> = new EventEmitter();
   @Output() editClientEvent: EventEmitter<any> = new EventEmitter();
@@ -16,7 +17,7 @@ export class DumbClientComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public selectClient(user: any) {
+  public selectClient(user: Client) {
     this.selectClientEvent.emit(user);
   }
 
@@ -24,10 +25,10 @@ export class DumbClientComponent implements OnInit {
     event.stopPropagation();
   }
 
-  public edit(user: any) {
+  public edit(user: Client) {
     this.editClientEvent.emit(user);
   }
-  public delete(user: any) {
+  public delete(user: Client) {
     this.deleteClientEvent.emit(user);
   }
 }

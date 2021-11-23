@@ -3,12 +3,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { DeleteComponent } from '../shared/components/ui/delete/delete.component';
 import { DialogViewComponent } from '../shared/components/ui/dialog-view/dialog-view.component';
+import { Client } from '../shared/model/client.model';
 import { PageInfo } from '../shared/model/page-info.model';
 import { Pageable } from '../shared/model/pageable.model';
 import { AppState } from '../state';
-import * as fromChurch from '../state/church';
-import { DeleteClientComponent } from './delete-client/delete-client.component';
+import * as fromClient from '../state/client';
 import { EditClientComponent } from './edit-client/edit-client.component';
 
 @Component({
@@ -21,7 +22,7 @@ export class ClientComponent implements OnInit, OnDestroy {
   public formAddChurch: FormGroup;
   public formFilter: FormGroup;
 
-  public clients: any[] = [];
+  public clients: Client[] = [];
   public pageable: Pageable;
   public pageInfo: PageInfo;
   public filters: any;
@@ -35,14 +36,14 @@ export class ClientComponent implements OnInit, OnDestroy {
     this.subscribeToPageable();
     this.createForms();
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromClient.actions.ListClients(
         {
           name: this.filters.name,
         },
         this.pageable
       )
     );
-    this.subscribeToChurchs();
+    this.subscribeToClients();
   }
 
   ngOnDestroy() {
@@ -50,7 +51,7 @@ export class ClientComponent implements OnInit, OnDestroy {
   }
 
   public selectClient(client: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
+    this.store$.dispatch(new fromClient.actions.SelectClient(client));
     this.dialog.open(DialogViewComponent, {
       width: '1100px',
       data: {
@@ -60,22 +61,25 @@ export class ClientComponent implements OnInit, OnDestroy {
   }
 
   public edit(client: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
+    this.store$.dispatch(new fromClient.actions.SelectClient(client));
     this.dialog.open(EditClientComponent, {
       width: '900px',
     });
   }
-  public delete(client: any) {
-    this.store$.dispatch(new fromChurch.actions.SelectChurch(client));
-    this.dialog.open(DeleteClientComponent, {
+  public delete(client: Client) {
+    this.store$.dispatch(new fromClient.actions.SelectClient(client));
+    this.dialog.open(DeleteComponent, {
       width: '450px',
+      data: {
+        name: client.name,
+      },
     });
   }
 
-  public subscribeToChurchs() {
+  public subscribeToClients() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectChurchs))
+        .pipe(select(fromClient.selectors.selectClients))
         .subscribe((state) => {
           this.clients = state;
         })
@@ -85,7 +89,7 @@ export class ClientComponent implements OnInit, OnDestroy {
   public subscribeToPageable() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectPageable))
+        .pipe(select(fromClient.selectors.selectPageable))
         .subscribe((state) => {
           this.pageable = { ...state };
         })
@@ -95,7 +99,7 @@ export class ClientComponent implements OnInit, OnDestroy {
   public subscribeToPageInfo() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectPageInfo))
+        .pipe(select(fromClient.selectors.selectPageInfo))
         .subscribe((state) => {
           this.pageInfo = { ...state };
         })
@@ -105,7 +109,7 @@ export class ClientComponent implements OnInit, OnDestroy {
   public subscribeToFilters() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromChurch.selectors.selectFilters))
+        .pipe(select(fromClient.selectors.selectFilters))
         .subscribe((state) => {
           this.filters = { ...state };
         })
@@ -131,7 +135,7 @@ export class ClientComponent implements OnInit, OnDestroy {
 
   public loadPage(page: number) {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromClient.actions.ListClients(
         {
           name: this.filters.name,
         },
@@ -147,7 +151,7 @@ export class ClientComponent implements OnInit, OnDestroy {
 
   public searchByNameClient(nameClient: string) {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromClient.actions.ListClients(
         {
           name: nameClient,
         },
@@ -163,7 +167,7 @@ export class ClientComponent implements OnInit, OnDestroy {
 
   public resetSearch() {
     this.store$.dispatch(
-      new fromChurch.actions.ListChurchs(
+      new fromClient.actions.ListClients(
         {
           name: '',
         },
