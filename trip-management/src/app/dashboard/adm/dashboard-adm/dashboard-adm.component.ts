@@ -1,27 +1,22 @@
-import { Router } from '@angular/router';
 import { CustomerService } from 'src/app/shared/model/customer-service.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Subscription } from 'rxjs';
-import { AppState } from '../state';
-import * as fromCustomerService from '../state/customer-service';
-import * as fromClient from '../state/client';
-
-interface Profile {
-  description: string;
-  id: string;
-}
+import { AppState } from '../../../state';
+import * as fromCustomerService from '../../../state/customer-service';
+import * as fromClient from '../../../state/client';
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-dashboard-adm',
+  templateUrl: './dashboard-adm.component.html',
+  styleUrls: ['./dashboard-adm.component.scss'],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardAdmComponent implements OnInit {
   public title = 'Dashboard';
-  public isAdmin = false;
-  public profile: Profile;
+  public quantityCustomerServicesOpen = 0;
+  public quantityCustomerServicesClose = 0;
+  public quantityClients = 0;
 
   public lineChartDataBar: ChartDataSets[];
   public lineChartLabelsBar: Label[];
@@ -35,19 +30,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public lineChartLegendPolarArea;
   public lineChartTypePolarArea;
 
-  public quantityCustomerServicesOpen: number;
-  public quantityCustomerServicesClose: number;
-
-  public quantityClients: number;
-
   public subscription: Subscription = new Subscription();
   public customersService: CustomerService[];
 
-  constructor(private store$: Store<AppState>, private router: Router) {}
+  constructor(private store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    // this.isAdmin = localStorage.getItem('isAdmin') === 'A' ? true : false;
-    this.profile = JSON.parse(localStorage.getItem('profile'));
     this.chooseDispatchs();
     this.subscribeToQuantityCustomersService();
   }
@@ -57,16 +45,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private chooseDispatchs(): void {
-    if (this.profile.id === '1') {
-      this.router.navigateByUrl('dashboard/adm');
-      // this.dispatchsIsAdmin();
-      // this.getClients();
-      // this.subscribeToQuantityClients();
-    }
-    if (this.profile.id === '2') {
-      this.router.navigateByUrl('dashboard/technician');
-      // this.dispatchIsTechnician();
-    }
+    this.dispatchsIsAdmin();
+    this.getClients();
+    this.subscribeToQuantityClients();
   }
 
   private getClients(): void {
@@ -107,10 +88,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.store$.dispatch(
       new fromCustomerService.actions.ListCustomerServices(null, null)
     );
-  }
-
-  private dispatchIsTechnician(): void {
-    // Obter os chamados atribuidos ao técnico
   }
 
   private createChartBar(): void {
