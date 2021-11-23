@@ -35,6 +35,7 @@ export function loginReducer(
       return {
         ...state,
         credentials: initialState.credentials,
+        user: initialState.user,
       };
     }
     default:

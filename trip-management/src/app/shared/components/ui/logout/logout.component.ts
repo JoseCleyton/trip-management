@@ -32,7 +32,7 @@ export class LogoutComponent implements OnInit, OnDestroy {
 
   public logout() {
     this.closeDialog();
-    this.loginService.logout();
     this.store$.dispatch(new fromLogin.actions.Logout());
+    this.loginService.logout();
   }
 }

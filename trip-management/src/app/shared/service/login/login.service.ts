@@ -26,6 +26,7 @@ export class LoginService {
     localStorage.removeItem('token');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('login');
+    localStorage.removeItem('profile');
     this.router.navigateByUrl('');
   }
 }
