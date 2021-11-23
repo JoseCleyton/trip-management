@@ -1,0 +1,102 @@
+<div id="cards" class="row">
+    <div class="col">
+        <mat-card class="mat-card">
+            <div class="row">
+                <div class="col-12">
+                    <img class="img-60-60" src="../../assets/images/icons8-customer-service-64.png" />
+                </div>
+                <div class="col d-flex justify-content-start align-items-center mt-1">
+                    <h4>Chamados Abertos</h4>
+                </div>
+                <div class="col d-flex justify-content-end align-items-center mt-1">
+                    <p class="p">{{ quantityCustomerServicesOpen }}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div class="col card-dizimo">
+        <mat-card class="mat-card">
+            <div class="row">
+                <div class="col-12">
+                    <img class="img-60-60" src="../../assets/images/icons8-verificar-arquivo-64.png" />
+                </div>
+                <div class="col d-flex justify-content-start align-items-center mt-1">
+                    <h4>Chamados Concluidos</h4>
+                </div>
+                <div class="col d-flex justify-content-end align-items-center mt-1">
+                    <p class="p">{{ quantityCustomerServicesClose }}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="col">
+        <mat-card class="mat-card">
+            <div class="row">
+                <div class="col-12">
+                    <img class="img-60-60" src="../../assets/images/icons8-chamada-em-conferencia-50.png" />
+                </div>
+                <div class="col-6 d-flex justify-content-start align-items-center mt-1">
+                    <h4>Clientes</h4>
+                </div>
+                <div class="col-6 d-flex justify-content-end align-items-center pt-3 mt-1">
+                    <p class="p">{{ quantityClients }}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="col">
+        <mat-card class="mat-card">
+            <div class="row">
+                <div class="col-12">
+                    <img class="img-60-60" src="../../assets/images/icons8-dinheiro-150.png" />
+                </div>
+                <div class="col-6 d-flex justify-content-start align-items-center mt-1">
+                    <h4>Custos</h4>
+                </div>
+                <div class="col-6 d-flex justify-content-end align-items-center mt-1">
+                    <p class="p">R$ 1.000,00</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+</div>
+
+<div class="row" id="section-two">
+    <div class="col-xl-6 col-md-4 col-sm-12 mb-1">
+      <div class="row">
+        <div class="col-10 d-flex justify-content-start align-items-center">
+          <h4 style="font-weight: 600">Relatório</h4>
+        </div>
+        <div class="col-2 d-flex justify-content-center align-items-center">
+          <button class="btn" type="button" routerLink="/feature/report">
+            <mat-icon aria-hidden="false">arrow_right_alt</mat-icon>
+          </button>
+        </div>
+        <div class="col-12">
+          <canvas baseChart [datasets]="lineChartDataPolarArea" [labels]="lineChartLabelsPolarArea"
+            [colors]="lineChartColorsPolarArea" [legend]="lineChartLegendPolarArea" [chartType]="lineChartTypePolarArea">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-4 col-sm-12 mb-1">
+      <div class="row">
+        <div class="col-10 d-flex justify-content-start align-items-center">
+          <h4 style="font-weight: 600">Relatório</h4>
+        </div>
+        <div class="col-2 d-flex justify-content-center align-items-center">
+          <button class="btn" type="button" routerLink="/feature/report">
+            <mat-icon aria-hidden="false">arrow_right_alt</mat-icon>
+          </button>
+        </div>
+        <div class="col-12">
+          <canvas baseChart [datasets]="lineChartDataBar" [labels]="lineChartLabelsBar" [colors]="lineChartColorsBar"
+            [legend]="lineChartLegendBar" [chartType]="lineChartTypeBar">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>

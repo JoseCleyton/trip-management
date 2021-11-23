@@ -4,8 +4,8 @@
   </h3>
   <div class="row" style="width: 100%; margin: auto">
     <div class="col-12 icons-menu mt-1">
-      <img *ngIf="url === '/feature/dashboard'" class="img-10-10"
-        src="../../assets/images/icons8-circulo-preenchido-16.png" />
+      <img *ngIf="url === '/feature/dashboard' || 'feature/dashboard/adm'  || 'feature/dashboard/technician'"
+        class="img-10-10" src="../../assets/images/icons8-circulo-preenchido-16.png" />
       <button class="btn" routerLink="dashboard">
         <mat-icon class="material-icons-outlined" aria-hidden="true">dashboard</mat-icon>
       </button>
@@ -17,35 +17,35 @@
         <img class="img-26-26" src="../../assets/images/icons8-serviço-50.png" />
       </button>
     </div>
-    <div class="col-12 icons-menu">
+    <div *ngIf="profile.id === '1'" class="col-12 icons-menu">
       <img *ngIf="url === '/feature/user'" class="img-10-10"
         src="../../assets/images/icons8-circulo-preenchido-16.png" />
       <button class="btn" routerLink="user">
         <img class="img-26-26" src="../../assets/images/icons8-conferencia-64.png" />
       </button>
     </div>
-    <div class="col-12 icons-menu">
+    <div *ngIf="profile.id === '1'" class="col-12 icons-menu">
       <img *ngIf="url === '/feature/client'" class="img-10-10"
         src="../../assets/images/icons8-circulo-preenchido-16.png" />
       <button class="btn" routerLink="client">
         <img class="img-26-26" src="../../assets/images/icons8-reunião-80.png" />
       </button>
     </div>
-    <div class="col-12 icons-menu">
+    <div *ngIf="profile.id === '1'" class="col-12 icons-menu">
       <img *ngIf="url === '/feature/cost-center'" class="img-10-10"
         src="../../assets/images/icons8-circulo-preenchido-16.png" />
       <button class="btn" routerLink="cost-center">
         <img class="img-26-26" src="../../assets/images/icons8-banco-100.png" />
       </button>
     </div>
-    <div class="col-12 icons-menu">
+    <div *ngIf="profile.id === '1'" class="col-12 icons-menu">
       <img *ngIf="url === '/feature/technician'" class="img-10-10"
         src="../../assets/images/icons8-circulo-preenchido-16.png" />
       <button class="btn" routerLink="technician">
         <img class="img-26-26" src="../../assets/images/icons8-engenheiro-50.png" />
       </button>
     </div>
-    <div class="col-12 icons-menu">
+    <div *ngIf="profile.id === '1'" class="col-12 icons-menu">
       <img *ngIf="url === '/feature/report'" class="img-10-10"
         src="../../assets/images/icons8-circulo-preenchido-16.png" />
       <button class="btn" routerLink="report">
@@ -53,7 +53,9 @@
       </button>
     </div>
 
-    <div class="col-12" id="icon-account">
+
+
+    <div class="fixed-bottom">
       <button class="btn" [matMenuTriggerFor]="menu">
         <img class="img-35-35" src="../../assets/images/icons8-conta-de-teste-160.png" />
       </button>
@@ -64,7 +66,7 @@
         <mat-icon aria-hidden="false">logout</mat-icon>
         Sair
       </button>
-      <button *ngIf="isAdmin" mat-menu-item (click)="changePassword()">
+      <button mat-menu-item (click)="changePassword()">
         <mat-icon aria-hidden="false">vpn_key</mat-icon>
         Alterar Senha
       </button>

@@ -3,7 +3,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LogoutComponent } from '../shared/components/ui/logout/logout.component';
-import { PROFILE } from '../shared/contants/profile-enum';
+
+interface Profile {
+  description: string;
+  id: string;
+}
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -11,14 +16,15 @@ import { PROFILE } from '../shared/contants/profile-enum';
 })
 export class MenuComponent implements OnInit, OnDestroy {
   public url = '';
-  public isAdmin = false;
+  public profile: Profile;
 
-  public profiles = PROFILE
+  // public profiles = PROFILE;
+
   public subscription: Subscription = new Subscription();
-  constructor(private router: Router, public dialog: MatDialog) { }
+  constructor(private router: Router, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.isAdmin = localStorage.getItem('isAdmin') === 'A' ? true : false;
+    this.profile = JSON.parse(localStorage.getItem('profile'));
     this.url = this.router.url;
     this.subscribeToUrl();
   }
