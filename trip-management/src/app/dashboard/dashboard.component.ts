@@ -1,3 +1,4 @@
+import { CustomerService } from 'src/app/shared/model/customer-service.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ChartDataSets } from 'chart.js';
@@ -5,10 +6,13 @@ import { Color, Label } from 'ng2-charts';
 import { Subscription } from 'rxjs';
 import { AppState } from '../state';
 import * as fromCustomerService from '../state/customer-service';
-import * as fromChristian from '../state/christian';
-import * as fromTithing from '../state/tithing';
-import { Tithing } from '../shared/model/tithing.model';
+import * as fromClient from '../state/client';
 import { formatDate } from '../shared/utils/utils';
+
+interface Profile {
+  description: string;
+  id: string;
+}
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,6 +21,7 @@ import { formatDate } from '../shared/utils/utils';
 export class DashboardComponent implements OnInit, OnDestroy {
   public title = 'Dashboard';
   public isAdmin = false;
+  public profile: Profile;
 
   public lineChartDataBar: ChartDataSets[];
   public lineChartLabelsBar: Label[];
@@ -32,58 +37,63 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   public quantityCustomerServicesOpen: number;
   public quantityCustomerServicesClose: number;
-  public quantityChristian: number;
+
+  public quantityClients: number;
 
   public subscription: Subscription = new Subscription();
-  public tithings: Tithing[];
+  public customersService: CustomerService[];
+
   constructor(private store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.isAdmin = localStorage.getItem('isAdmin') === 'A' ? true : false;
-
-    this.dispatchsIsAdmin();
-    this.dispatchIsUser();
+    // this.isAdmin = localStorage.getItem('isAdmin') === 'A' ? true : false;
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    this.chooseDispatchs();
     this.subscribeToQuantityCustomersService();
-    this.subscribeToQuantityChristians();
-    this.subscribeToListTithings();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  public subscribeToQuantityCustomersService() {
+  private chooseDispatchs(): void {
+    if (this.profile.id === '1') {
+      this.dispatchsIsAdmin();
+      this.getClients();
+      this.subscribeToQuantityClients();
+    }
+    if (this.profile.id === '3') {
+      this.dispatchIsTechnician();
+    }
+  }
+
+  private getClients(): void {
+    this.store$.dispatch(new fromClient.actions.ListClients(null, null));
+  }
+
+  public subscribeToQuantityClients(): void {
+    this.subscription.add(
+      this.store$
+        .pipe(select(fromClient.selectors.selectClients))
+        .subscribe((state) => {
+          this.quantityClients = state.length;
+        })
+    );
+  }
+
+  public subscribeToQuantityCustomersService(): void {
     this.subscription.add(
       this.store$
         .pipe(select(fromCustomerService.selectors.selectCustomersServices))
         .subscribe((state) => {
+          this.customersService = [...state];
           this.quantityCustomerServicesOpen = state.filter(
             (customer) => !customer.dateEnd
           ).length;
           this.quantityCustomerServicesClose = state.filter(
             (customer) => customer.dateEnd
           ).length;
-        })
-    );
-  }
-
-  public subscribeToQuantityChristians() {
-    this.subscription.add(
-      this.store$
-        .pipe(select(fromChristian.selectors.selectQuantityChristians))
-        .subscribe((state) => {
-          this.quantityChristian = state;
-        })
-    );
-  }
-
-  public subscribeToListTithings() {
-    this.subscription.add(
-      this.store$
-        .pipe(select(fromTithing.selectors.selectTithings))
-        .subscribe((state) => {
-          this.tithings = state;
-          if (this.tithings) {
+          if (state) {
             this.createChartBar();
             this.createChartPolarArea();
           }
@@ -91,34 +101,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  private dispatchsIsAdmin() {
-    if (this.isAdmin) {
-      this.store$.dispatch(
-        new fromCustomerService.actions.ListCustomerServices(null, null)
-      );
-    }
+  private dispatchsIsAdmin(): void {
+    this.store$.dispatch(
+      new fromCustomerService.actions.ListCustomerServices(null, null)
+    );
   }
 
-  private dispatchIsUser() {
-    this.store$.dispatch(new fromChristian.actions.GetQuantityChristians());
-    this.store$.dispatch(new fromTithing.actions.GetTotal());
-    this.store$.dispatch(new fromTithing.actions.FetchLatestRecords());
+  private dispatchIsTechnician(): void {
+    // Obter os chamados atribuidos ao técnico
   }
 
-  private createChartBar() {
-    const dates = this.tithings.map((tithing) => tithing.date);
+  private createChartBar(): void {
+    const dates = this.customersService.map(
+      (customerService) => customerService.dateStart
+    );
 
     const datesFiltering = dates.filter(
       (tithing, index) => dates.indexOf(tithing) === index
     );
+
     let dataValue = [];
     for (let i = 0; i < datesFiltering.length; i++) {
       const date = datesFiltering[i];
       let value = 0;
-      for (let j = 0; j < this.tithings.length; j++) {
-        const tithing = this.tithings[j];
-        if (date === tithing.date) {
-          value += tithing.value;
+      for (let j = 0; j < this.customersService.length; j++) {
+        const customerService = this.customersService[j];
+        if (date === customerService.dateStart) {
+          ++value;
         }
       }
       dataValue.push(value);
@@ -127,11 +136,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.lineChartDataBar = [
       {
         data: dataValue,
-        label: 'Chamados Atendidos por Dia',
+        label: 'Chamados abertos por Dia',
       },
     ];
 
-    this.lineChartLabelsBar = datesFiltering.map((date) => formatDate(date));
+    this.lineChartLabelsBar = datesFiltering;
 
     this.lineChartColorsBar = [
       {
@@ -153,7 +162,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private createChartPolarArea() {
-    const dates = this.tithings.map((tithing) => tithing.date);
+    const dates = this.customersService.map(
+      (customerService) => customerService.dateStart
+    );
 
     const datesFiltering = dates.filter(
       (tithing, index) => dates.indexOf(tithing) === index
@@ -162,10 +173,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     for (let i = 0; i < datesFiltering.length; i++) {
       const date = datesFiltering[i];
       let value = 0;
-      for (let j = 0; j < this.tithings.length; j++) {
-        const tithing = this.tithings[j];
-        if (date === tithing.date) {
-          value += tithing.value;
+      for (let j = 0; j < this.customersService.length; j++) {
+        const customerService = this.customersService[j];
+        if (date === customerService.dateStart) {
+          ++value;
         }
       }
       dataValue.push(value);
@@ -174,13 +185,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.lineChartDataPolarArea = [
       {
         data: dataValue,
-        label: 'Chamados Atendidos por Dia',
+        label: 'Chamados abertos por Dia',
       },
     ];
 
-    this.lineChartLabelsPolarArea = datesFiltering.map((date) =>
-      formatDate(date)
-    );
+    this.lineChartLabelsPolarArea = datesFiltering;
 
     this.lineChartColorsPolarArea = [
       {

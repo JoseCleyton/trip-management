@@ -45,12 +45,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   public subscribeToToken() {
     this.subscription.add(
       this.store$
-        .pipe(select(fromLogin.selectors.selectCredentials))
+        .pipe(select(fromLogin.selectors.selectUser))
         .subscribe((state) => {
           if (state) {
-            localStorage.setItem('isAdmin', state.isAdmin === true ? 'A' : 'U');
-            localStorage.setItem('login', state.login);
-            localStorage.setItem('token', state.token);
+            // localStorage.setItem('isAdmin', state.isAdmin === true ? 'A' : 'U');
+            localStorage.setItem('profile', JSON.stringify(state.profile));
+            // localStorage.setItem('login', state.login);
+            // localStorage.setItem('token', state.token);
+            localStorage.setItem('token', 'HJLJHYFTFTTR4567VGCF');
             this.router.navigateByUrl('feature/dashboard');
           }
         })

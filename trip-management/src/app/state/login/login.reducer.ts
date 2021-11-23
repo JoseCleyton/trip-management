@@ -1,6 +1,8 @@
+import { User } from './../../shared/model/user.model';
 import { LoginActions, LoginActionsTypes } from './login.actions';
 
 export interface LoginState {
+  user: User;
   credentials: {
     token: string;
     isAdmin: boolean;
@@ -9,7 +11,8 @@ export interface LoginState {
 }
 
 export const initialState: LoginState = {
-  credentials: undefined,
+  user: null,
+  credentials: null,
 };
 
 export function loginReducer(
@@ -20,9 +23,10 @@ export function loginReducer(
     case LoginActionsTypes.LOGIN_SUCCESS: {
       return {
         ...state,
+        user: action.payload,
         credentials: {
           token: action.payload.token,
-          isAdmin: action.payload.admin,
+          isAdmin: action.payload.profile.description === 'ADMINISTRADOR',
           login: action.payload.login,
         },
       };

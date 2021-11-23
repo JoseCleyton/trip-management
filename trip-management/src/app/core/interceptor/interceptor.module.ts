@@ -71,10 +71,10 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
                 message: 'Token expirado',
               })
             );
-            localStorage.removeItem('login');
-            localStorage.removeItem('token');
-            localStorage.removeItem('isAdmin');
-            this.router.navigateByUrl('/login');
+            // localStorage.removeItem('login');
+            // localStorage.removeItem('token');
+            // localStorage.removeItem('isAdmin');
+            // this.router.navigateByUrl('/login');
           }
 
           if (err.status === 404) {
