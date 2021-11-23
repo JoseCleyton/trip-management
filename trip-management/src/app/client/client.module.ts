@@ -1,3 +1,6 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,15 +14,9 @@ import { CommonModule } from '@angular/common';
 import { ClientRoutingModule } from './client-routing.module';
 import { DumbClientComponent } from './dumb-client/dumb-client.component';
 import { EditClientComponent } from './edit-client/edit-client.component';
-import { DeleteClientComponent } from './delete-client/delete-client.component';
 
 @NgModule({
-  declarations: [
-    ClientComponent,
-    DumbClientComponent,
-    EditClientComponent,
-    DeleteClientComponent,
-  ],
+  declarations: [ClientComponent, DumbClientComponent, EditClientComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
@@ -29,6 +26,10 @@ import { DeleteClientComponent } from './delete-client/delete-client.component';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
   ],
 })
 export class ClientModule {}

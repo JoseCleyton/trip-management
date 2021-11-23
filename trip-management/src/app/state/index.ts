@@ -6,6 +6,8 @@ import * as user from './user';
 import * as customerService from './customer-service';
 import * as fromTithing from './tithing';
 import * as christian from './christian';
+import * as client from './client';
+
 export interface AppState {
   login: login.reducer.LoginState;
   alert: alert.reducer.AlertState;
@@ -14,6 +16,7 @@ export interface AppState {
   fromTithing: fromTithing.reducer.TithingState;
   customerService: customerService.reducer.CustomerServiceState;
   christian: christian.reducer.ChristianState;
+  client: client.reducer.ClientState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -24,6 +27,7 @@ export const reducers: ActionReducerMap<AppState> = {
   fromTithing: fromTithing.reducer.tithingReducer,
   customerService: customerService.reducer.customerServiceReducer,
   christian: christian.reducer.christianReducer,
+  client: client.reducer.clientReducer,
 };
 
 export const effects: Array<any> = [
@@ -34,6 +38,7 @@ export const effects: Array<any> = [
   fromTithing.effects,
   customerService.effects,
   christian.effects,
+  client.effects,
 ];
 
 export const initialState = {
@@ -44,4 +49,5 @@ export const initialState = {
   fromTithing: fromTithing.reducer.initialState,
   customerService: customerService.reducer.initialState,
   christian: christian.reducer.initialState,
+  client: client.reducer.initialState,
 };

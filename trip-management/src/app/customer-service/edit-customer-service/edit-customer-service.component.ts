@@ -27,18 +27,21 @@ export class EditCustomerServiceComponent implements OnInit, OnDestroy {
       id: '1',
       address: null,
       phone: '',
+      email: '',
     },
     {
       name: 'Leticia Vieira',
       id: '2',
       address: null,
       phone: '',
+      email: '',
     },
     {
       name: 'João Lima',
       id: '3',
       address: null,
       phone: '',
+      email: '',
     },
   ];
 
@@ -163,7 +166,7 @@ export class EditCustomerServiceComponent implements OnInit, OnDestroy {
       (technician) =>
         technician.id === this.formEditCustomerService.get('technicianId').value
     );
-    
+
     this.selectedCustomerService.address.cep =
       this.formEditCustomerService.get('cep').value;
     this.selectedCustomerService.address.city =

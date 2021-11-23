@@ -148,7 +148,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
 
   public openDialogNewClient() {
     this.dialog.open(EditClientComponent, {
-      width: '900px',
+      width: '600px',
     });
   }
 
