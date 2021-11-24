@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { EditCustomerServiceComponent } from 'src/app/customer-service/edit-customer-service/edit-customer-service.component';
+import { EditCustomerServiceComponent } from 'src/app/customer-service-container/edit-customer-service/edit-customer-service.component';
 import { Profile } from 'src/app/shared/model/profile.model';
 import { User } from 'src/app/shared/model/user.model';
 import { AppState } from 'src/app/state';

@@ -22,8 +22,8 @@ const routes: Routes = [
       {
         path: 'customer-service',
         loadChildren: () =>
-          import('../customer-service/customer-service.module').then(
-            (m) => m.CustomerServiceModule
+          import('../customer-service-container/customer-service-container.module').then(
+            (m) => m.CustomerServiceContainerModule
           ),
       },
       {

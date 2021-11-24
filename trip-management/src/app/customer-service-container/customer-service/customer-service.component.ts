@@ -1,4 +1,5 @@
-import { CustomerServiceFirebaseService } from './../shared/service/customer-service/customer-service-firebase';
+import { Router } from '@angular/router';
+import { CustomerServiceFirebaseService } from './../../shared/service/customer-service/customer-service-firebase';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {
@@ -8,17 +9,16 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { DialogViewComponent } from '../shared/components/ui/dialog-view/dialog-view.component';
 import { select, Store } from '@ngrx/store';
-import { AppState } from '../state';
-import * as fromCustomerService from '../state/customer-service';
+import { AppState } from '../../state';
+import * as fromCustomerService from '../../state/customer-service';
 import { Subscription } from 'rxjs';
-import { Pageable } from '../shared/model/pageable.model';
-import { PageInfo } from '../shared/model/page-info.model';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { EditCustomerServiceComponent } from './edit-customer-service/edit-customer-service.component';
-import { DeleteComponent } from '../shared/components/ui/delete/delete.component';
+import { Pageable } from 'src/app/shared/model/pageable.model';
+import { PageInfo } from 'src/app/shared/model/page-info.model';
+import { EditCustomerServiceComponent } from '../edit-customer-service/edit-customer-service.component';
+import { DeleteComponent } from 'src/app/shared/components/ui/delete/delete.component';
 @Component({
   selector: 'app-customer-service',
   templateUrl: './customer-service.component.html',
@@ -47,7 +47,8 @@ export class CustomerServiceComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private store$: Store<AppState>,
-    private customerService: CustomerServiceFirebaseService
+    private customerService: CustomerServiceFirebaseService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -75,13 +76,14 @@ export class CustomerServiceComponent implements OnInit, OnDestroy {
   }
 
   public selectCustomerService(customerService: any): void {
-    this.dialog.open(DialogViewComponent, {
-      width: '1100px',
-      data: {
-        typeOfData: 'customer-service',
-        data: customerService,
-      },
-    });
+    this.router.navigateByUrl('customer-service/details');
+    // this.dialog.open(DialogViewComponent, {
+    //   width: '1100px',
+    //   data: {
+    //     typeOfData: 'customer-service',
+    //     data: customerService,
+    //   },
+    // });
   }
 
   public preventDefault(event: Event): void {
@@ -274,11 +276,9 @@ export class CustomerServiceComponent implements OnInit, OnDestroy {
   }
 
   public selectAllRetrive(): void {
-    this.customerService
-      .findAll()
-      .subscribe((data) => {
-        this.selectedCustomersService = [...data];
-      });
+    this.customerService.findAll().subscribe((data) => {
+      this.selectedCustomersService = [...data];
+    });
   }
 
   searchByNumberChristian(event): void {}

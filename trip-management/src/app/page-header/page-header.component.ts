@@ -1,4 +1,3 @@
-import { EditCustomerServiceComponent } from '../customer-service/edit-customer-service/edit-customer-service.component';
 import {
   Component,
   EventEmitter,
@@ -19,6 +18,7 @@ import { EditClientComponent } from '../client/edit-client/edit-client.component
 import { EditUserComponent } from '../user/edit-user/edit-user.component';
 import { EditCostCenterComponent } from '../cost-center/edit-cost-center/edit-cost-center.component';
 import { EditTechnicianComponent } from '../technician/edit-technician/edit-technician.component';
+import { EditCustomerServiceComponent } from '../customer-service-container/edit-customer-service/edit-customer-service.component';
 @Component({
   selector: 'app-page-header',
   templateUrl: './page-header.component.html',
